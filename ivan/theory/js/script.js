@@ -182,7 +182,7 @@ for (let key in user) {
 console.log(user);
 console.log(user[id]);
 
-Map
+//Map
 
 const shops = [
    { bread: 38 },
@@ -222,7 +222,7 @@ for (const item of map.entries()) {
 //forEach тоже работает
 console.log(mapSecond);
 
-Set
+//Set
 
 const arr = ['Alex', 'Ann', 'Oleg', 'Ann'];
 
@@ -253,5 +253,23 @@ console.log(unique(arr));
 
 //----------------------------------------------------------------------------------------
 
+const buttons = document.querySelectorAll('button'),
+   wrapper = document.querySelector('.btn-block');
 
+buttons[0].classList.add('red', 'mimm')
+buttons[0].classList.remove('red')
+buttons[0].classList.toggle('red')
+console.log(buttons[0].classList.item(1));
+console.log(buttons[0].classList.contains('red'));
+
+//Делегирование событий 
+wrapper.addEventListener('click', (event) => {
+   if (event.target && event.target.tagName == 'BUTTON') {
+      console.log('Hello');
+   }
+});
+
+const btn = document.createElement('button');
+btn.classList.add('red');
+wrapper.append(btn)
 
