@@ -1,257 +1,257 @@
-// console.log(NaN || 2 || undefined); //2
-// console.log(NaN && 2 && undefined); // Nan
-// console.log(1 && 2 && 3); // 3
-// console.log(!1 && 2 || !3); // false
-// console.log(25 || null && !3); //25
-// console.log(NaN || null || !3 || undefined || 5); //5
-// console.log(NaN || null && !3 && undefined || 5); //5
-// console.log(5 === 5 && 3 > 1 || 5); //true
-//----------------------------------------------------------------------------------------
-
-// let n;
-// const fr = NaN;
-// const zer = 0;
-// const num = 2;
-
-// if (n || zer || fr === 3 || num) {
-//    console.log('done')
-// }
-
-// for (let i = 5; i <= 10; i++) {
-//    console.log(i)
-// }
-
-// for (let i = 20; i >= 10; i--) {
-//    if (i == 13) break;
-//    console.log(i);
-// }
-
-// for (let i = 2; i <= 10; i++) {
-//    if (i % 2 === 0) console.log(i);
-// }
-
-// for (let i = 2; i <= 16; i++) {
-//    if (i % 2 === 0) {
-//       continue;
-//    } else {
-//       console.log(i);
-//    }
-// }
-
-// let num = 2;
-// while (num != 17) {
-//    if (num % 2 !== 0) console.log(num);
-//    num++
-// }
+console.log(NaN || 2 || undefined); //2
+console.log(NaN && 2 && undefined); // Nan
+console.log(1 && 2 && 3); // 3
+console.log(!1 && 2 || !3); // false
+console.log(25 || null && !3); //25
+console.log(NaN || null || !3 || undefined || 5); //5
+console.log(NaN || null && !3 && undefined || 5); //5
+console.log(5 === 5 && 3 > 1 || 5); //true
 
 //----------------------------------------------------------------------------------------
 
-// const data = [5, 10, 'Shopping', 20, 'Homework'];
+let n;
+const fr = NaN;
+const zer = 0;
+const tw = 2;
 
-// for (let i = 0; i < data.length; i++) {
-//    if (typeof (data[i]) === 'number') data[i] *= 2;
-//    if (typeof (data[i]) === 'string') data[i] += ' - done';
-// }
-// console.log(data);
+if (n || zer || fr === 3 || tw) {
+   console.log('done')
+}
 
-// const data = [5, 10, 'Shopping', 20, 'Homework'];
-// const result = [];
-// for (let i = 1; i <= data.length; i++) {
-//    result[i - 1] = data[data.length - i];
-// }
-// console.log(result);
+for (let i = 5; i <= 10; i++) {
+   console.log(i)
+}
 
-// const lines = 5;
-// let result = '';
-// for (let i = 0; i <= lines; i++) {
-//    result += '\n'
-// }
-// console.log(result);
+for (let i = 20; i >= 10; i--) {
+   if (i == 13) break;
+   console.log(i);
+}
 
-////----------------------------------------------------------------------------------------
+for (let i = 2; i <= 10; i++) {
+   if (i % 2 === 0) console.log(i);
+}
 
-// function getMathResult(baseNumber, amount) {
-//    if (typeof (amount) === 'string' || amount <= 0) return baseNumber;
+for (let i = 2; i <= 16; i++) {
+   if (i % 2 === 0) {
+      continue;
+   } else {
+      console.log(i);
+   }
+}
 
-//    let result = `${baseNumber}`;
-//    let num = baseNumber;
+let num = 2;
+while (num != 17) {
+   if (num % 2 !== 0) console.log(num);
+   num++
+}
 
-//    for (let i = 1; i < amount; i++) {
-//       baseNumber = num * (i + 1);
-//       result += `---${baseNumber}`;
-//    }
+//----------------------------------------------------------------------------------------
 
-//    return result;
-// }
+const dataInf = [5, 10, 'Shopping', 20, 'Homework'];
 
-// console.log(getMathResult(5, 3));
-// console.log(getMathResult(5, 1));
-// console.log(getMathResult(5, 0));
-// console.log(getMathResult(5, 'str'));
+for (let i = 0; i < data.length; i++) {
+   if (typeof (dataInf[i]) === 'number') dataInf[i] *= 2;
+   if (typeof (dataInf[i]) === 'string') dataInf[i] += ' - done';
+}
+console.log(dataInf);
 
-// function sayHello(userName) {
-//    return `Привет, ${userName}!`;
-// }
-// console.log(sayHello('Alex'));;
+const resul = [];
+for (let i = 1; i <= data.length; i++) {
+   resul[i - 1] = data[data.length - i];
+}
+console.log(resul);
 
-//-------------------------------------------------------------------
+const lines = 5;
+let result = '';
+for (let i = 0; i <= lines; i++) {
+   result += '\n'
+}
+console.log(result);
 
-// const family = ['Peter', 'Ann', 'Alex', 'Linda'];
+//----------------------------------------------------------------------------------------
 
-// function showFamily(arr) {
-//    if (arr.length === 0) return 'Семья пуста';
+function getMathResult(baseNumber, amount) {
+   if (typeof (amount) === 'string' || amount <= 0) return baseNumber;
 
-//    let str = 'Семья состоит из: ';
-//    arr.forEach(item => {
-//       str += `${item} `;
-//    });
+   let result = `${baseNumber}`;
+   let num = baseNumber;
 
-//    return str;
-// }
+   for (let i = 1; i < amount; i++) {
+      baseNumber = num * (i + 1);
+      result += `---${baseNumber}`;
+   }
 
-// const favoriteCities = ['liSBon', 'ROME', 'miLan', 'Dublin'];
+   return result;
+}
 
-// function standardizeStrings(arr) {
-//    let str = '';
-//    if (arr.length === 0) console.log(str);;
+console.log(getMathResult(5, 3));
+console.log(getMathResult(5, 1));
+console.log(getMathResult(5, 0));
+console.log(getMathResult(5, 'str'));
 
-//    arr.forEach(item => {
-//       str += `${item.toLowerCase()}\n`
-//    })
+function sayHello(userName) {
+   return `Привет, ${userName}!`;
+}
+console.log(sayHello('Alex'));;
 
-//    console.log(str);
-// }
+//----------------------------------------------------------------------------------------
+
+const family = ['Peter', 'Ann', 'Alex', 'Linda'];
+
+function showFamily(arr) {
+   if (arr.length === 0) return 'Семья пуста';
+
+   let str = 'Семья состоит из: ';
+   arr.forEach(item => {
+      str += `${item} `;
+   });
+
+   return str;
+}
+
+const favoriteCities = ['liSBon', 'ROME', 'miLan', 'Dublin'];
+
+function standardizeStrings(arr) {
+   let str = '';
+   if (arr.length === 0) console.log(str);;
+
+   arr.forEach(item => {
+      str += `${item.toLowerCase()}\n`
+   })
+
+   console.log(str);
+}
 
 
-// const someString = 'This is some strange string';
+const someString = 'This is some strange string';
 //Переворачивание строки
-// function reverse(str) {
-//    if (typeof (str) !== 'string') return 'Ошибка';
+function reverse(str) {
+   if (typeof (str) !== 'string') return 'Ошибка';
 
-//    let arr = str.split('');
-//    arr.reverse();
+   let arr = str.split('');
+   arr.reverse();
 
-//    return arr.join('');
+   return arr.join('');
 
-// }
-// console.log(reverse(someString));
+}
+console.log(reverse(someString));
 
-//----------------------------
+//----------------------------------------------------------------------------------------
 
-// let num = 6;
-// function calc() {
-//    num = 7;
-// }
+let numb = 6;
+function calc() {
+   numb = 7;
+}
 
-// calc()
-// console.log(num);
+calc()
+console.log(numb);
 
-//------------------------------------------------------------------
+//----------------------------------------------------------------------------------------
 
-// const user = {
-//    name: 'Alex',
-//    surname: 'Smith',
-//    birthday: '20/04/1993',
-//    showMyPublicData: function () {
-//       console.log(`${this.name} ${this.surname}`);
-//    }
-// };
+const user = {
+   name: 'Alex',
+   surname: 'Smith',
+   birthday: '20/04/1993',
+   showMyPublicData: function () {
+      console.log(`${this.name} ${this.surname}`);
+   }
+};
 
-// // console.log(Object.getOwnPropertyDescriptor(user, 'birthday'));
+// console.log(Object.getOwnPropertyDescriptor(user, 'birthday'));
 
-// Object.defineProperty(user, 'surname', { writable: false })
-// // console.log(Object.getOwnPropertyDescriptor(user, 'surname'));
-// user.surname = 'selyavin'; // не перезапишет из-за writable
-// // console.log(user);
-
-// Object.defineProperty(user, 'gender', { value: 'M' }) //создаёт новое свойство сразу с флагами false
-// // console.log(Object.getOwnPropertyDescriptor(user, 'gender'));
-
-// Object.defineProperties(user, {
-//    name: { writable: false },
-//    surname: { enumerable: false }
-// })
-
-// const id = Symbol('id');
-// user[id] = 1;
-
-// for (let key in user) {
-//    console.log(user[key]);
-// }
-
+Object.defineProperty(user, 'surname', { writable: false })
+// console.log(Object.getOwnPropertyDescriptor(user, 'surname'));
+user.surname = 'selyavin'; // не перезапишет из-за writable
 // console.log(user);
-// console.log(user[id]);
 
-//Map
+Object.defineProperty(user, 'gender', { value: 'M' }) //создаёт новое свойство сразу с флагами false
+// console.log(Object.getOwnPropertyDescriptor(user, 'gender'));
 
-// const shops = [
-//    { bread: 38 },
-//    { beer: 100 },
-//    { cake: 250 }
-// ];
+Object.defineProperties(user, {
+   name: { writable: false },
+   surname: { enumerable: false }
+})
 
-// const budget = [5000, 6000, 7000];
+const id = Symbol('id');
+user[id] = 1;
 
-// const map = new Map(); // помогает делать ключ обьектом
+for (let key in user) {
+   console.log(user[key]);
+}
 
-// shops.forEach((item, idx) => {
-//    map.set(item, budget[idx]);
-// })
+console.log(user);
+console.log(user[id]);
 
-// console.log(map);
-// console.log(map.get(shops[0])); //выдаст значение
-// console.log(map.has(shops[0])); //Есть ли
-// console.log(map.delete(shops[0])); //Удаляет
-// console.log(map.clear()); //Удаляет всё
-// console.log(map.size); //Размер
-// console.log(map);
+Map
 
-// const mapSecond = new Map([
-//    [{ apple: 15 }, 50]
-// ]);
+const shops = [
+   { bread: 38 },
+   { beer: 100 },
+   { cake: 250 }
+];
 
-// for (const key of map.keys()) {
-//    console.log(key);
-// }
-// for (const val of map.values()) {
-//    console.log(val);
-// }
-// for (const item of map.entries()) {
-//    console.log(item);
-// }
+const budget = [5000, 6000, 7000];
+
+const map = new Map(); // помогает делать ключ обьектом
+
+shops.forEach((item, idx) => {
+   map.set(item, budget[idx]);
+})
+
+console.log(map);
+console.log(map.get(shops[0])); //выдаст значение
+console.log(map.has(shops[0])); //Есть ли
+console.log(map.delete(shops[0])); //Удаляет
+console.log(map.clear()); //Удаляет всё
+console.log(map.size); //Размер
+console.log(map);
+
+const mapSecond = new Map([
+   [{ apple: 15 }, 50]
+]);
+
+for (const key of map.keys()) {
+   console.log(key);
+}
+for (const val of map.values()) {
+   console.log(val);
+}
+for (const item of map.entries()) {
+   console.log(item);
+}
 //forEach тоже работает
-// console.log(mapSecond);
+console.log(mapSecond);
 
-//Set
+Set
 
-// const arr = ['Alex', 'Ann', 'Oleg', 'Ann'];
+const arr = ['Alex', 'Ann', 'Oleg', 'Ann'];
 
-// const set = new Set(arr);
-// set.add('Oleg');
-// set.add('Ivan');
-// set.clear();
-// set.size;
-// set.delete('Ivan');
-// console.log(set.has('Ivan'));
-// console.log(set);
+const set = new Set(arr);
+set.add('Oleg');
+set.add('Ivan');
+set.clear();
+set.size;
+set.delete('Ivan');
+console.log(set.has('Ivan'));
+console.log(set);
 
-// for (const value of set) {
-//    console.log(value);
-// }
+for (const value of set) {
+   console.log(value);
+}
 
-// set.forEach((value, valueAgain, set) => {
-//    console.log(value, valueAgain);
-// })
+set.forEach((value, valueAgain, set) => {
+   console.log(value, valueAgain);
+})
 
-// console.log(set.values());
+console.log(set.values());
 
-// function unique(array) {
-//    return Array.from(new Set(array));
-// }
+function unique(array) {
+   return Array.from(new Set(array));
+}
 
-// console.log(unique(arr));
+console.log(unique(arr));
 
-//------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------
 
 
 
