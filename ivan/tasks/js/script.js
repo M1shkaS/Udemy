@@ -469,3 +469,87 @@ function deepCount(a) {
    return counter;
 }
 
+/* 
+!16. ?
+*/
+function fib(amount) {
+   if (typeof (amount) !== 'number' || amount <= 0 || !Number.isInteger(amount)) return "";
+
+   let prevNumber = 0,
+      nextNumber = 1;
+   let res = "";
+
+   while (true) {
+      res += prevNumber;
+      amount--;
+      if (amount === 0) break;
+      res += " ";
+
+      let a = nextNumber;
+      nextNumber += prevNumber;
+      prevNumber = a;
+   }
+   return res;
+}
+
+/* 
+!17. ?
+*/
+
+const personalPlanPeter = {
+   name: "Peter",
+   age: "29",
+   skills: {
+      languages: ['ru', 'eng'],
+      programmingLangs: {
+         js: '20%',
+         php: '10%'
+      },
+      exp: '1 month'
+   },
+   showAgeAndLangs: function (obj) {
+      const { age } = obj;
+      const { languages } = obj.skills;
+      let str = `Мне ${age} и я владею языками: `;
+
+      languages.forEach(function (lang) {
+         str += `${lang.toUpperCase()} `;
+      });
+
+      return str;
+   }
+};
+
+function showExperience(plan) {
+   let { exp } = plan['skills'];
+   return exp
+}
+
+function showProgrammingLangs(plan) {
+   let str = "";
+
+   for (let key in plan["skills"]["programmingLangs"]) {
+      str += `Язык ${key} изучен на ${plan["skills"]["programmingLangs"][key]}\n`
+   }
+   return str;
+}
+
+
+/* 
+!18. ?
+*/
+
+const baseCurrencies = ['USD', 'EUR'];
+const additionalCurrencies = ['UAH', 'RUB', 'CNY'];
+
+function availableCurr(arr, missingCurr) {
+   if (arr.length === 0) return 'Нет доступных валют';
+
+   let str = 'Доступные валюты:\n';
+   arr.forEach(item => {
+      if (item !== missingCurr) str += `${item}\n`;
+   })
+   return str;
+}
+
+ //console.log(availableCurr([...baseCurrencies, ...additionalCurrencies], 'CNY'));
