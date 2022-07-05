@@ -262,7 +262,7 @@ buttons[0].classList.toggle('red')
 console.log(buttons[0].classList.item(1));
 console.log(buttons[0].classList.contains('red'));
 
-//Делегирование событий 
+//Делегирование событий
 wrapper.addEventListener('click', (event) => {
    if (event.target && event.target.tagName == 'BUTTON') {
       console.log('Hello');
@@ -272,4 +272,18 @@ wrapper.addEventListener('click', (event) => {
 const btn = document.createElement('button');
 btn.classList.add('red');
 wrapper.append(btn)
+
+const timerId = setTimeout(logger, 1000);
+clearTimeout(timerId)
+
+//Нулевую задержку нельзя, всё равно буде 4мл.
+//setInterval не делает паузы, если callback большой, а setTimeout делает
+const intId = setInterval(logger, 1000);
+clearInterval(intId)
+
+
+function logger() {
+   console.log('Hello');
+}
+
 
