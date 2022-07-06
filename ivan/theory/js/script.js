@@ -286,4 +286,68 @@ function logger() {
    console.log('Hello');
 }
 
+//----------------------------------------------------------------------------------------
+
+// WeakSet (аругментами могут быть только обьекты и если на нх удаляется ссылка, то и тут они тоже удалятся)
+// add delete has
+
+let messageUser = [
+   { text: ' Hello', user: 'Ilya' },
+   { text: ' Как дела?', user: 'Миша' },
+   { text: ' Магазин', user: 'Dima' }
+];
+
+let readMessages = new WeakSet();
+
+readMessages.add(messageUser[0]);
+
+messageUser.shift();
+
+console.log(readMessages.has(messageUser[0]));
+
+// WeakMap (ключами могут быть только обьекты и если на нх удаляется ссылка, то и тут они тоже удалятся)
+// add delete has get
+
+let cashe = new WeakMap();
+
+function casheUser(user) {
+   if (!cashe.has(user)) {
+      cashe.set(user, Date.now());
+   }
+
+   return cashe.get(user);
+}
+
+let lena = { name: 'lena' };
+let Alex = { name: 'Alex' };
+
+console.log(casheUser(lena));
+console.log(casheUser(Alex));
+
+Alex = null;
+console.log(cashe.has(lena));
+console.log(cashe.has(Alex));
+
+//----------------------------------------------------------------------------------------
+// Date
+
+let date = new Date();
+
+
+console.log(date);
+console.log(date.getFullYear());
+console.log(date.getMonth());
+console.log(date.getDate());
+console.log(date.getDay());
+console.log(date.getTime());
+console.log(date.getHours());
+
+date.setFullYear(2023);
+console.log(date);
+
+let start = new Date();
+
+let end = new Date();
+end.setFullYear(2024)
+console.log(((((end - start) / 1000) / 60) / 60) / 24);
 
