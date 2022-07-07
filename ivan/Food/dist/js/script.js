@@ -134,6 +134,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
   const deadLine = '2022-07-10';
+  setClock(deadLine, '.timer');
 
   function getTimeRemaining(endTime) {
     const t = Date.parse(endTime) - Date.parse(new Date()),
@@ -180,9 +181,48 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     updateTime();
+  } //Modal
+
+
+  const modal = document.querySelector('.modal'),
+        btnOpenModal = document.querySelectorAll('[data-modal]'),
+        modalClose = modal.querySelector('[data-close]');
+  const modalTimerId = setTimeout(openModal, 10000);
+  btnOpenModal.forEach(btn => {
+    btn.addEventListener('click', event => {
+      event.preventDefault();
+      openModal();
+      clearTimeout(modalTimerId);
+    });
+  });
+  modal.addEventListener('click', event => {
+    const target = event.target;
+
+    if (target && target.classList.contains('modal') || target === modalClose) {
+      closeModal();
+    }
+  });
+  document.addEventListener('keydown', event => {
+    if (event.code === 'Escape') closeModal();
+  });
+  window.addEventListener('scroll', showModalByScroll);
+
+  function openModal() {
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
   }
 
-  setClock(deadLine, '.timer');
+  function closeModal() {
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  function showModalByScroll() {
+    if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
+      openModal();
+      window.removeEventListener('scroll', showModalByScroll);
+    }
+  }
 });
 
 /***/ })
