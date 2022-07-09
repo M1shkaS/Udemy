@@ -223,6 +223,53 @@ window.addEventListener('DOMContentLoaded', () => {
       window.removeEventListener('scroll', showModalByScroll);
     }
   }
+
+  class MenuItem {
+    constructor(src, alt, title, decr, price, parentSelector, ...classes) {
+      this.src = src;
+      this.alt = alt;
+      this.title = title;
+      this.decr = decr;
+      this.price = price;
+      this.classes = classes;
+      this.transfer = 60;
+      this.parent = document.querySelector(parentSelector);
+      this.changeToRub();
+    }
+
+    changeToRub() {
+      this.price = this.transfer * this.price;
+    }
+
+    render() {
+      const element = document.createElement('div');
+      console.log(this);
+
+      if (this.classes.length === 0) {
+        this.classes = 'menu__item';
+        element.classList.add(this.classes);
+      } else {
+        this.classes.forEach(className => element.classList.add(className));
+      }
+
+      element.innerHTML = `
+         <img src="${this.src}" alt="${this.alt}">
+         <h3 class="menu__item-subtitle">Меню "${this.title}"</h3>
+         <div class="menu__item-descr">${this.decr} </div>
+         <div class="menu__item-divider"></div>
+         <div class="menu__item-price">
+            <div class="menu__item-cost">Цена:</div>
+            <div class="menu__item-total"><span>${this.price}</span> руб/день</div>
+         </div>
+         `;
+      this.parent.append(element);
+    }
+
+  }
+
+  new MenuItem('img/tabs/vegy.jpg', 'vegy', 'Фитнес', 'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов.Продукт активных и здоровых людей.Это абсолютно новый продукт с оптимальной ценой и высоким качеством!', 500, '.menu__field .container', 'menu__item', 'big').render();
+  new MenuItem('img/tabs/vegy.jpg', 'vegy', 'Фитнес', 'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов.Продукт активных и здоровых людей.Это абсолютно новый продукт с оптимальной ценой и высоким качеством!', 10, '.menu__field .container', 'menu__item').render();
+  new MenuItem('img/tabs/elite.jpg', 'elite', '“Премиум”', 'Меню "Премиум" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов.Продукт активных и здоровых людей.Это абсолютно новый продукт с оптимальной ценой и высоким качеством!', 30, '.menu__field .container').render();
 });
 
 /***/ })

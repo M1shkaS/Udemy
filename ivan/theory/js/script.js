@@ -418,3 +418,43 @@ console.log(double(3));
 //2) Контекст у методов обьекта это сам обьект
 //3) this в конструкторах и классах это новый экземпляр обьекта
 //4) Ручная привязка this: call, apply, double
+
+//----------------------------------------------------------------------------------------
+
+//Classes
+
+class Reactangle {
+   constructor(height, width) {
+      this.height = height;
+      this.width = width;
+   }
+
+   calcArea() {
+      return this.height * this.width
+   }
+}
+
+class ColoredReactangleWithText extends Reactangle {
+   constructor(height, width, text, bgColor) {
+      super(height, width);
+      this.text = text;
+      this.bgColor = bgColor;
+   }
+   showMyProps() {
+      console.log(`Текст ${this.text}, цвет ${this.bgColor}`);
+   }
+}
+
+const div = new ColoredReactangleWithText(50, 10, 'Misha', 'red');
+div.showMyProps()
+console.log(div.calcArea());
+
+const square = new Reactangle(100, 10);
+console.log(square.calcArea());
+
+//Rest operator
+
+const log = function (a, b, ...rest) {
+   console.log(a, b, rest);
+}
+log(4, 'mi', 1, 2, 3, 4, 5, 'lol')
