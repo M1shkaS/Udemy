@@ -243,7 +243,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
     render() {
       const element = document.createElement('div');
-      console.log(this);
 
       if (this.classes.length === 0) {
         this.classes = 'menu__item';
@@ -269,7 +268,51 @@ window.addEventListener('DOMContentLoaded', () => {
 
   new MenuItem('img/tabs/vegy.jpg', 'vegy', 'Фитнес', 'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов.Продукт активных и здоровых людей.Это абсолютно новый продукт с оптимальной ценой и высоким качеством!', 500, '.menu__field .container', 'menu__item', 'big').render();
   new MenuItem('img/tabs/vegy.jpg', 'vegy', 'Фитнес', 'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов.Продукт активных и здоровых людей.Это абсолютно новый продукт с оптимальной ценой и высоким качеством!', 10, '.menu__field .container', 'menu__item').render();
-  new MenuItem('img/tabs/elite.jpg', 'elite', '“Премиум”', 'Меню "Премиум" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов.Продукт активных и здоровых людей.Это абсолютно новый продукт с оптимальной ценой и высоким качеством!', 30, '.menu__field .container').render();
+  new MenuItem('img/tabs/elite.jpg', 'elite', '“Премиум”', 'Меню "Премиум" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов.Продукт активных и здоровых людей.Это абсолютно новый продукт с оптимальной ценой и высоким качеством!', 30, '.menu__field .container').render(); //Forms
+
+  const forms = document.querySelectorAll('form');
+  forms.forEach(form => {
+    postData(form);
+  });
+  const messages = {
+    loaded: 'Загрузка',
+    success: 'Ваши данные были отправлены',
+    failed: 'Упс.. Что-то пошло не так'
+  };
+
+  function postData(form) {
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      const statusMessage = document.createElement('div');
+      statusMessage.classList.add('status');
+      statusMessage.textContent = messages.loaded;
+      form.append(statusMessage);
+      const request = new XMLHttpRequest();
+      request.open('POST', 'server.php'); // request.setRequestHeader('Content-type', 'multipart/form-data')
+
+      request.setRequestHeader('Content-type', 'application/json');
+      const formData = new FormData(form);
+      const obj = {};
+      formData.forEach(function (val, key) {
+        obj[key] = val;
+      });
+      request.send(JSON.stringify(obj));
+      request.addEventListener('load', () => {
+        if (request.status === 200) {
+          console.log(request.response);
+          statusMessage.textContent = messages.success;
+          form.reset();
+          setTimeout(() => {
+            statusMessage.remove();
+          }, 3000);
+        } else {
+          console.log('Что-то пошло не так');
+          statusMessage.textContent = messages.failed;
+          form.reset();
+        }
+      });
+    });
+  }
 });
 
 /***/ })
