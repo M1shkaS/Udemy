@@ -185,8 +185,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
   const modal = document.querySelector('.modal'),
-        btnOpenModal = document.querySelectorAll('[data-modal]'),
-        modalClose = modal.querySelector('[data-close]');
+        btnOpenModal = document.querySelectorAll('[data-modal]');
   const modalTimerId = setTimeout(openModal, 10000);
   btnOpenModal.forEach(btn => {
     btn.addEventListener('click', event => {
@@ -198,7 +197,7 @@ window.addEventListener('DOMContentLoaded', () => {
   modal.addEventListener('click', event => {
     const target = event.target;
 
-    if (target && target.classList.contains('modal') || target === modalClose) {
+    if (target && target.classList.contains('modal') || target.getAttribute('data-close') == '') {
       closeModal();
     }
   });
@@ -252,15 +251,15 @@ window.addEventListener('DOMContentLoaded', () => {
       }
 
       element.innerHTML = `
-         <img src="${this.src}" alt="${this.alt}">
-         <h3 class="menu__item-subtitle">Меню "${this.title}"</h3>
-         <div class="menu__item-descr">${this.decr} </div>
-         <div class="menu__item-divider"></div>
-         <div class="menu__item-price">
-            <div class="menu__item-cost">Цена:</div>
-            <div class="menu__item-total"><span>${this.price}</span> руб/день</div>
-         </div>
-         `;
+<img src="${this.src}" alt="${this.alt}">
+<h3 class="menu__item-subtitle">Меню "${this.title}"</h3>
+<div class="menu__item-descr">${this.decr} </div>
+<div class="menu__item-divider"></div>
+<div class="menu__item-price">
+<div class="menu__item-cost">Цена:</div>
+<div class="menu__item-total"><span>${this.price}</span> руб/день</div>
+</div>
+`;
       this.parent.append(element);
     }
 
@@ -275,18 +274,18 @@ window.addEventListener('DOMContentLoaded', () => {
     postData(form);
   });
   const messages = {
-    loaded: 'Загрузка',
-    success: 'Ваши данные были отправлены',
+    loaded: 'img/form/spinner.svg',
+    success: 'Спасибо. Скоро мы с вами свяжемся',
     failed: 'Упс.. Что-то пошло не так'
   };
 
   function postData(form) {
     form.addEventListener('submit', event => {
       event.preventDefault();
-      const statusMessage = document.createElement('div');
-      statusMessage.classList.add('status');
-      statusMessage.textContent = messages.loaded;
-      form.append(statusMessage);
+      const statusMessage = document.createElement('img');
+      statusMessage.src = messages.loaded;
+      statusMessage.style.cssText = 'display: block; margin: 0 auto;';
+      form.insertAdjacentElement('afterend', statusMessage);
       const request = new XMLHttpRequest();
       request.open('POST', 'server.php'); // request.setRequestHeader('Content-type', 'multipart/form-data')
 
@@ -300,18 +299,36 @@ window.addEventListener('DOMContentLoaded', () => {
       request.addEventListener('load', () => {
         if (request.status === 200) {
           console.log(request.response);
-          statusMessage.textContent = messages.success;
+          showThanksModal(messages.success);
           form.reset();
-          setTimeout(() => {
-            statusMessage.remove();
-          }, 3000);
+          statusMessage.remove();
         } else {
           console.log('Что-то пошло не так');
-          statusMessage.textContent = messages.failed;
+          showThanksModal(messages.failed);
           form.reset();
         }
       });
     });
+  }
+
+  function showThanksModal(text) {
+    const prevModalDialog = document.querySelector('.modal__dialog');
+    prevModalDialog.style.display = 'none';
+    openModal();
+    const modalDialog = document.createElement('div');
+    modalDialog.classList.add('modal__dialog');
+    modalDialog.innerHTML = `
+   <div class='modal__content'>
+         <div data-close="" class="modal__close">×</div>
+         <div class="modal__title">${text}</div>
+   </div>
+   `;
+    document.querySelector('.modal').append(modalDialog);
+    setTimeout(() => {
+      modalDialog.remove();
+      prevModalDialog.style.display = 'block';
+      closeModal();
+    }, 5000);
   }
 });
 
