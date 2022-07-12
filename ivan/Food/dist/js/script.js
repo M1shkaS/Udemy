@@ -307,7 +307,20 @@ window.addEventListener('DOMContentLoaded', () => {
           showThanksModal(messages.failed);
           form.reset();
         }
-      });
+      }); // fetch('server.php', {
+      //    method: 'POST',
+      //    body: JSON.stringify(obj),
+      //    headers: { 'Content-type': 'application/json' }
+      // }).then(response => response.text())
+      //    .then(data => {
+      //       console.log(data);
+      //       showThanksModal(messages.success);
+      //       form.reset();
+      //       statusMessage.remove();
+      //    })
+      //    .catch(() => {
+      //       showThanksModal(messages.failed);
+      //    }).finally(() => form.reset())
     });
   }
 
@@ -318,18 +331,21 @@ window.addEventListener('DOMContentLoaded', () => {
     const modalDialog = document.createElement('div');
     modalDialog.classList.add('modal__dialog');
     modalDialog.innerHTML = `
-   <div class='modal__content'>
-         <div data-close="" class="modal__close">×</div>
-         <div class="modal__title">${text}</div>
-   </div>
-   `;
+                 <div class='modal__content'>
+                       <div data-close="" class="modal__close">×</div>
+                       <div class="modal__title">${text}</div>
+                 </div>
+                 `;
     document.querySelector('.modal').append(modalDialog);
     setTimeout(() => {
       modalDialog.remove();
       prevModalDialog.style.display = 'block';
       closeModal();
     }, 5000);
-  }
+  } // fetch('http://localhost:3000/menu')
+  //    .then(data => data.json())
+  //    .then(response => console.log(response));
+
 });
 
 /***/ })
