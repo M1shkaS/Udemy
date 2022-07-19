@@ -134,4 +134,73 @@ const arrFruits = ['apple', 'milk', 'beer'];
 const resultFrit = arrFruits.reduce((sum, current) => sum + ', ' + current);
 console.log(resultFrit);
 
+//!localStorage
 
+localStorage.setItem('number', 10);
+// localStorage.removeItem('number');
+localStorage.clear();
+
+console.log(localStorage.getItem('number'));
+
+//!Регулярные выражения
+i, g, m
+new RegExp('pattern', 'flags')
+const ans = prompt('Введите число');
+
+// const req = /n/ig;
+// console.log(req.test(ans));
+// const req = /\d/g;
+console.log(ans.match(req));
+
+
+// \d - цифры
+// \w - буквы
+// \s - пробелы
+// \D - Не цифры
+// \W - Не буквы
+
+console.log(ans.search(req));
+console.log(ans.match(req));
+
+const pass = prompt('Password');
+console.log(pass.replace(/./g, '*'));
+console.log(pass.replace(/\./g, '*'));//экранирование
+console.log('12-50-64'.replace(/-/g, ':'));
+
+//!Практика
+
+const p1 = new Promise((resolve, reject) => {
+   setTimeout(resolve, 1000, "one");
+});
+const p2 = new Promise((resolve, reject) => {
+   setTimeout(resolve, 2000, "two");
+});
+const p3 = new Promise((resolve, reject) => {
+   setTimeout(resolve, 3000, "three");
+});
+const p4 = new Promise((resolve, reject) => {
+   setTimeout(resolve, 4000, "four");
+});
+const p5 = new Promise((resolve, reject) => {
+   reject("reject");
+});
+
+Promise.all([p1, p2, p3, p4, p5]).then(value => {
+   console.log(value);
+}, reason => {
+   console.log(reason) //'reject' - будет
+});
+
+const personeSecond = {
+   name: 'Alex',
+   age: 30,
+   get userAge() {
+      return this.age
+   },
+   set userAge(num) {
+      this.age = num
+   }
+}
+
+console.log(personeSecond.userAge = 31);
+console.log(personeSecond.userAge);
