@@ -95,7 +95,7 @@ Promise.race([prom(1000), prom(2000)]).then(() => {
    console.log('race');
 })
 
-//Fetch
+//!Fetch
 
 fetch('https://jsonplaceholder.typicode.com/posts', {
    method: 'POST',
@@ -204,3 +204,88 @@ const personeSecond = {
 
 console.log(personeSecond.userAge = 31);
 console.log(personeSecond.userAge);
+
+!Инкапсуляция
+
+function User(name, age) {
+   this.name = name;
+   this.age = age;
+
+   this.say = function () {
+      console.log(`Имя пользователя: ${this.name}, возраст: ${this.age}`);
+   }
+}
+function User(name, age) {
+   this.name = name;
+   let userAge = age;
+
+   this.say = function () {
+      console.log(`Имя пользователя: ${this.name}, возраст: ${userAge}`);
+   }
+
+   this.getUserAge = function () {
+      return userAge;
+   }
+   this.setUserAge = function (num) {
+      userAge = num;
+   }
+}
+
+const misha = new User('misha', 20)
+console.log(misha.age);
+misha.say();
+
+misha.age = 30;
+misha.say();
+misha.setUserAge(30)
+console.log(misha.getUserAge());
+
+class User {
+   constructor(name, age) {
+      this.name = name;
+      this._age = age;
+   }
+
+   say = () => {
+      console.log(`Имя пользователя: ${this.name}, возраст: ${this._age}`);
+   }
+
+   get age() {
+      return this._age;
+   }
+   set age(age) {
+      if (typeof (age) == 'number' && age > 0 && age < 125) {
+         this._age = age;
+      } else {
+         console.log('Введите корректное число...');
+      }
+   }
+}
+const misha = new User('misha', 20)
+misha.say();
+console.log(misha.age);
+misha.age = 10000;
+console.log(misha.age);
+
+class User {
+   constructor(name, age) {
+      this.name = name;
+      this._age = age;
+   }
+   #surname = 'Selyavin';
+   say = () => {
+      console.log(`Имя пользователя: ${this.name} ${this.#surname}, возраст: ${this._age}`);
+   }
+
+   get surname() {
+      return this.#surname;
+   }
+   set surname(surname) {
+      this.#surname = surname;
+   }
+}
+
+const misha = new User('misha', 20);
+misha.surname = 'Roga'
+misha.say();
+console.log(misha.surname);
