@@ -629,3 +629,30 @@ const getTotalIncomeAmount = (data) => {
 };
 
 console.log(getTotalIncomeAmount(funds));
+
+/* 
+!20. ?
+*/
+//Композиция функций
+
+//1
+const myltiply20 = (price) => price * 20;
+const divide100 = (price) => price / 100;
+const normalizePrice = (price) => price.toFixed(2);
+
+
+const compose = (...arrFunctions) => (x) => {
+   return arrFunctions.reduceRight((previousValue, currentValue) => currentValue(previousValue), x);
+};
+const discount = compose(normalizePrice, divide100, myltiply20)
+console.log(discount(200));
+
+//2
+
+const add1 = (a) => a + 1;
+const add113 = (a, b, c) => a + b + c;
+const composeWithArgs = (...arrFunctions) => arrFunctions.reduceRight((previousValue, currentValue) => (...num) => currentValue(previousValue(...num)));
+;
+
+
+console.log(composeWithArgs(add1, add113)(1, 2, 3));

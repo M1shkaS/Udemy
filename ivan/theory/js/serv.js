@@ -338,3 +338,106 @@ try {
       throw error;
    }
 }
+
+//! Функции генераторы
+//Выдаёт результат последовательно
+
+function* generator() {
+   yield 'm';
+   yield 'i';
+   yield 's';
+}
+const str = generator();
+console.log(str.next().value);
+console.log(str.next());
+console.log(str.next());
+console.log(str.next());
+
+function* secondGenerator(n) {
+   for (let i = 0; i < n; i++) {
+      yield i;
+   }
+}
+
+const secondStr = secondGenerator(5);
+
+console.log(secondStr.next().value);
+console.log(secondStr.next().value);
+console.log(secondStr.next().value);
+
+for (let k of secondGenerator(3)) {
+   console.log(k);
+}
+
+//!requestAnimationFrame
+const btn = document.querySelector('.btn'),
+   elem = document.querySelector('.box');
+let pos = 0;
+
+// function myAnimation() {
+//     let pos = 0;
+
+//     const id = setInterval(frame, 10);
+//     function frame() {
+//         if (pos == 300) {
+//             clearInterval(id);
+//         } else {
+//             pos++;
+//             elem.style.top = pos + "px";
+//             elem.style.left = pos + 'px';
+//         }
+//     }
+// }
+
+function myAnimation() {
+   pos++;
+   elem.style.top = pos + "px";
+   elem.style.left = pos + 'px';
+
+   if (pos < 300) {
+      requestAnimationFrame(myAnimation);
+   }
+}
+
+btn.addEventListener('click', () => requestAnimationFrame(myAnimation));
+
+let id = requestAnimationFrame(myAnimation);
+cancelAnimationFrame(id);
+
+//!Animate
+
+const btnPhone = document.querySelector('#iphone'),
+   btnMacbook = document.querySelector('#macbook'),
+   images = document.querySelectorAll('img');
+
+// const phoneAnimation = images[0].animate([
+//    { transform: 'translateY(0)' },
+//    { transform: 'translateY(100px)' },
+//    { transform: 'translateY(-100px)' },
+//    { transform: 'translateY(0)' }
+// ], {
+//    duration: 3000,
+//    iterations: Infinity
+
+// });
+
+let phoneAnimation;
+
+btnPhone.addEventListener('click', () => {
+   if (!phoneAnimation) {
+      phoneAnimation = images[0].animate([
+         { transform: 'translateY(0)' },
+         { transform: 'translateY(100px)' },
+         { transform: 'translateY(-100px)' },
+         { transform: 'translateY(0)' }
+      ], {
+         duration: 3000,
+         iterations: Infinity
+
+      });
+   } else if (phoneAnimation.playState == 'paused') {
+      phoneAnimation.play();
+   } else {
+      phoneAnimation.pause();
+   }
+})
