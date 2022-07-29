@@ -656,3 +656,5 @@ const composeWithArgs = (...arrFunctions) => arrFunctions.reduceRight((previousV
 
 
 console.log(composeWithArgs(add1, add113)(1, 2, 3));
+
+num()
