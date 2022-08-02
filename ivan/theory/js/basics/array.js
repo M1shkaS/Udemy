@@ -2,13 +2,14 @@
 
 const arr = [0, 1, 2, 3, 6, 8];
 
-//function принимает в себя 3 аргумента (эл-т массива, его номер по порядку, ссылка на перебираемый массив)
+// function принимает в себя 3 аргумента (эл-т массива, его номер по порядку, ссылка на перебираемый массив)
 arr.forEach((item, idx, arr) => {
    console.log(`${idx}: ${item} is contained inside of ${arr}`)
 });
 
 //Оператор for...of выполняет цикл обхода итерируемых объектов (включая Array, String, Map, Set, объект аргументов и подобных),Тут можно использовать break и continue , а в forEach нет 
 for (let value of arr) {
+   if (value == 3) continue;
    console.log(value);
 }
 
