@@ -98,9 +98,10 @@ console.log(misha.age);
 class User {
    constructor(name, age) {
       this.name = name;
-      this._age = age;
+      this._age = age;// делаем скрытым (условно)
    }
-   #surname = 'Selyavin';
+   surnameSecond = 'Chel'; // также свойство, просто без конструктора
+   #surname = 'Selyavin'; // решётка делает свойство скрытым
    say = () => {
       console.log(`Имя пользователя: ${this.name} ${this.#surname}, возраст: ${this._age}`);
    }
