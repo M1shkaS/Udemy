@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import { Component } from 'react';
+import { Component, StrictMode } from 'react';
 import './App.css';
 
 //Реакт компонент
@@ -61,7 +61,10 @@ function App() {
          {/* <Header></Header> */}
 
          {/* А можно и просто закрыть сразу */}
-         <Header />
+         <StrictMode>
+            <Header />
+         </StrictMode>
+
          <Field />
          <Btn />
          <FieldSecond />
