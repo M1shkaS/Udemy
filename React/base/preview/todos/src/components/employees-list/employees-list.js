@@ -2,14 +2,23 @@ import EmployeesListItem from "../employees-list-item/employees-list-item"
 
 import './employees-list.css';
 
-const EmployeesList = () => {
+const EmployeesList = ({ data }) => {
+
+   const elements = data.map(item => {
+      const { id, ...itemProps } = item;
+      return (
+         // spread, разворачиваем
+         // Эти ключи должны быть уникальны только среди соседей, но не глобально 
+         <EmployeesListItem key={id} {...itemProps} />
+      )
+   })
+
    return (
       <ul className="app-list list-group">
-         <EmployeesListItem />
-         <EmployeesListItem />
-         <EmployeesListItem />
+         {elements}
       </ul>
    )
 }
 
 export default EmployeesList
+
