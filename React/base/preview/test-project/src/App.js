@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, Fragment } from 'react';
 import './App.css';
 
 //Функциональный компонент т.к обьявлен через функцию
@@ -73,7 +73,10 @@ class WhoAmI extends Component {
       const { positions, years } = this.state
       return (
          // Внутренности важнее оболочки
-         <div>
+         //  Fragment помогает убирать обёртку  в вёрстке.Можно применять key React.Fragment key ='123'
+         //<> -сокращённая запись Fragment-а и не нужно его импортировать, но к ним нельзя применять key
+         // <>Что-то </>
+         <Fragment>
             {/* 3 способ */}
             <button onClick={() => this.nextYear()}>{this.state.text}</button>
             {/* <button onClick={this.nextYear}>{this.state.text}</button> */}
@@ -90,7 +93,7 @@ class WhoAmI extends Component {
                {/* Change и Input в реакте работает одинаково, а в нативном js inpet сразу после введения значения, а chancge после того как focus  с него будет снят*/}
                <input type="text" onChange={this.commitInputChanges} />
             </form>
-         </div>
+         </Fragment>
       )
    }
 }
