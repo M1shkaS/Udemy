@@ -36,8 +36,8 @@ class App extends Component {
          // return { data }
 
          //Второй способ правильный, но такой себе
-         // const before = data.splice(0, index);
-         // const after = data.splice(index + 1);
+         // const before = data.slice(0, index);
+         // const after = data.slice(index + 1);
          // const newArr = [...before, ...after]
          // return { data: newArr }
 
@@ -55,9 +55,10 @@ class App extends Component {
          salary: item.salary,
          increase: false,
          id: this.dataLength++
-      }
+      };
+
       this.setState(({ data }) => {
-         const newArr = [...data, newItem]
+         const newArr = [...data, newItem];
          return { data: newArr }
       })
    }
@@ -65,7 +66,8 @@ class App extends Component {
 
 
    render() {
-      const { data } = this.state
+      const { data } = this.state;
+
       return (
          <div className="app">
             <AppInfo />
