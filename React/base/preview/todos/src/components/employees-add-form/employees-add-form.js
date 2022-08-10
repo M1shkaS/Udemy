@@ -1,6 +1,10 @@
 import { Component } from 'react';
 
-import './employees-add-form.css';
+// import './employees-add-form.css';
+import './employees-add-form.scss';
+// Чтобы использовать scss надо ставит пакет sacc(раньше ставили node-sass, но он больше не поддерживается)
+// Нужно аккуратно использовать переменные
+// Если хотим использовать глобальный файлик с переменными variable.scss то его нужно каждый раз импортировать
 
 class EmployeesAddForm extends Component {
    constructor(props) {

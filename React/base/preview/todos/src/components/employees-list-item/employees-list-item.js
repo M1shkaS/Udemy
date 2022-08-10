@@ -17,7 +17,12 @@ const EmployeesListItem = (props) => {
    }
    return (
       <li className={className} >
-         <span onClick={onToggleProp} className="list-group-item-label" data-toggle="rise">{name}</span>
+         {/* enter не работает */}
+         <span tabIndex={0}
+            // реакт автоматически ставит px
+            // вендорные префиксы(они позволяют определённым свойствам работать во всех бразерах) тут ставиться не будут, нужно самим вручную писать в отличие от технологии styled
+            style={{ fontSize: 40, color: 'red' }}
+            onClick={onToggleProp} className="list-group-item-label" data-toggle="rise">{name}</span>
          <input type="text" className="list-group-item-input" defaultValue={salary + "$"} />
          <div className='d-flex justify-content-center align-items-center'>
             <button onClick={onToggleProp} type="button"

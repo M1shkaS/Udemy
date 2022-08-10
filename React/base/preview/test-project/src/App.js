@@ -1,6 +1,13 @@
 import { Component, Fragment } from 'react';
 import './App.css';
 
+//Эта библиотека позволяет использовать css прям в js с html
+//npm install --save styled-components
+import styled from 'styled-components'
+
+// В react можно использовать готовые библиотеки
+// npm install react-bootstrap bootstrap --save
+
 //Функциональный компонент т.к обьявлен через функцию
 //props - это обьект с вещами, которые мы туда передадим
 //Даже, если мы его сюда не передадим он будет существовать
@@ -15,6 +22,35 @@ import './App.css';
 //    )
 // }
 // Пропсы нельзя менять, а состояния можно
+
+//Вендорные префиксы ставятся автоматически
+//Можно делать вложенности
+const EmpItem = styled.div`
+   padding:20px;
+   margin-bottom:20px;
+   border-radius: 5px;
+   box-shadow:5px 5px 10px rgba(0,0,0, .2);
+   a{
+      display: block;
+      margin: 10px 0 10px 0;
+      color: ${props => props.active ? 'orange' : 'black'};
+   };
+   input{
+      display: block;
+      margin-top: 10px;
+   }
+`;
+const Header = styled.h2`
+   font-size: 22px;
+`;
+
+export const Button = styled.button`
+   display: block;
+   padding: 5px 15px;
+   background-color: gold;
+   border:1px solid  rgba(0,0,0, .2);
+   box-shadow:5px 5px 10px rgba(0,0,0, .2);
+`;
 
 //Пропсы внутри классовых компонентов
 class WhoAmI extends Component {
@@ -76,46 +112,59 @@ class WhoAmI extends Component {
          //  Fragment помогает убирать обёртку  в вёрстке.Можно применять key React.Fragment key ='123'
          //<> -сокращённая запись Fragment-а и не нужно его импортировать, но к ним нельзя применять key
          // <>Что-то </>
-         <Fragment>
+         <EmpItem active>
             {/* 3 способ */}
-            <button onClick={() => this.nextYear()}>{this.state.text}</button>
+            <Button onClick={() => this.nextYear()}>{this.state.text}</Button>
             {/* <button onClick={this.nextYear}>{this.state.text}</button> */}
             {/* Вот так можно передавать аргументы в функцию */}
             {/* <button onClick={(e) => this.nextYear(e,'some color')}>{this.state.text}</button> */}
 
 
-            <h1>My name is {name} , surname - {surname},
+            <Header>My name is {name} , surname - {surname},
                age - {years},
-               position - {positions} </h1>
+               position - {positions} </Header>
             <a target='_blank' href={link}>My profile</a>
             <form >
                <span>Введите должность</span>
                {/* Change и Input в реакте работает одинаково, а в нативном js inpet сразу после введения значения, а chancge после того как focus  с него будет снят*/}
                <input type="text" onChange={this.commitInputChanges} />
             </form>
-         </Fragment>
+         </EmpItem>
       )
    }
 }
 
+const Wrapper = styled.div`
+   width:600px;
+   margin:80px auto 0 auto;
+`
+
 function App() {
    return (
-      <div className="App">
-         {/* Значение этих атрибутов, котороые мы передаём
-          они не изменяемые, они ток на чтение.
-          Поменять не сможем, а если хотим поменять значение, то нужно полность перерисовывать*/}
-
-         {/* <WhoAmI name='Misha' surname='Selyavin' link='https://vk.com/im' />
-         <WhoAmI name='Ilya' surname='Roga' link='https://vk.com/im' /> */}
-
-         {/* <WhoAmI name={{ firstName: 'Andrei' }} surname='Roga' link='https://vk.com/im' /> */}
-         {/* Состояния компонента мы можем динамически менять */}
-         {/* Компоненты бывают классовые и функциональные */}
-         {/* <WhoAmI name={() => 'Mi'} surname='Roga' link='https://vk.com/im' /> */}
+      <Wrapper>
          <WhoAmI name='John' surname='Roga' link='https://vk.com/im' />
          <WhoAmI name='Mi' surname='Sel' link='https://vk.com/im' />
-      </div>
+      </Wrapper>
    );
 }
+// function App() {
+//    return (
+//       <div className="App">
+//          {/* Значение этих атрибутов, котороые мы передаём
+//           они не изменяемые, они ток на чтение.
+//           Поменять не сможем, а если хотим поменять значение, то нужно полность перерисовывать*/}
+
+//          {/* <WhoAmI name='Misha' surname='Selyavin' link='https://vk.com/im' />
+//          <WhoAmI name='Ilya' surname='Roga' link='https://vk.com/im' /> */}
+
+//          {/* <WhoAmI name={{ firstName: 'Andrei' }} surname='Roga' link='https://vk.com/im' /> */}
+//          {/* Состояния компонента мы можем динамически менять */}
+//          {/* Компоненты бывают классовые и функциональные */}
+//          {/* <WhoAmI name={() => 'Mi'} surname='Roga' link='https://vk.com/im' /> */}
+//          <WhoAmI name='John' surname='Roga' link='https://vk.com/im' />
+//          <WhoAmI name='Mi' surname='Sel' link='https://vk.com/im' />
+//       </div>
+//    );
+// }
 
 export default App;

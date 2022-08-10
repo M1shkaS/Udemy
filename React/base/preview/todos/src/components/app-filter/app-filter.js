@@ -11,6 +11,7 @@ const AppFilter = (props) => {
 
    const buttons = buttonsData.map(({ name, label }) => {
       const active = props.filter === name;
+      // Лучше использовать вот так, чем в классе что-то там мутить
       const clazz = active ? 'btn-light' : 'btn-outline-light';
       return (
          <button
