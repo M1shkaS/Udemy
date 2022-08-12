@@ -1,0 +1,6 @@
+@mixin decor{
+   &::after,&::before{
+      content: '' ;
+      background-color: #000000 ;
+   }
+}

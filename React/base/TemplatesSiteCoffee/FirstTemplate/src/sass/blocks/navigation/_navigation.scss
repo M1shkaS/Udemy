@@ -1,0 +1,23 @@
+.menu{
+      list-style-type: none;
+      display: flex;
+      align-items: flex-end;
+      height: 40px;
+
+   &__item {
+      position: relative;
+      margin-right: 40px;
+      a{
+         font-size: 12px;
+         line-height: 17px;
+         color: #FFFFFF;
+         text-decoration: none;
+      }
+      img{
+         position: absolute;
+         top: -20px;
+         left: -33px;
+      }
+
+   }
+}

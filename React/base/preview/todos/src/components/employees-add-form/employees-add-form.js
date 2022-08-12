@@ -2,19 +2,25 @@ import { Component } from 'react';
 
 // import './employees-add-form.css';
 import './employees-add-form.scss';
-// Чтобы использовать scss надо ставит пакет sacc(раньше ставили node-sass, но он больше не поддерживается)
+// Чтобы использовать scss надо ставить пакет sass(раньше ставили node-sass, но он больше не поддерживается)
 // Нужно аккуратно использовать переменные
 // Если хотим использовать глобальный файлик с переменными variable.scss то его нужно каждый раз импортировать
 
+// Можно не использовать коснутрктор
 class EmployeesAddForm extends Component {
-   constructor(props) {
-      super(props);
 
-      this.state = {
-         name: '',
-         salary: ''
-      }
+   state = {
+      name: '',
+      salary: ''
    }
+   // constructor(props) {
+   //    super(props);
+
+   //    this.state = {
+   //       name: '',
+   //       salary: ''
+   //    }
+   // }
 
    onValueChange = (e) => {
       this.setState({
@@ -40,7 +46,11 @@ class EmployeesAddForm extends Component {
 
    }
 
+   static onLog = () => {
+      console.log('Static');
+   }
 
+   static logged = 'on'
 
    render() {
 
@@ -91,5 +101,8 @@ class EmployeesAddForm extends Component {
 //       </div>
 //    )
 // }
+
+EmployeesAddForm.onLog();
+console.log(EmployeesAddForm.logged);
 
 export default EmployeesAddForm;

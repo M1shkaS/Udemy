@@ -1,0 +1,12 @@
+.about {
+   padding: 80px 100px;
+   text-align: center;
+   .decor {
+   @include decor;
+   }
+   &__text {
+      padding-top: 40px;
+      width: 590px;
+      margin: 0 auto;
+   }
+}
