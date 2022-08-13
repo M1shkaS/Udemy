@@ -24,13 +24,15 @@ class MarvelServices {
    }
 
    _transformChar = (char) => {
-      const descr = char.description ? char.description.slice(0, 220) + '...' : 'Извините, данных нет';
+      const descr = char.description ? char.description.slice(0, 210) + '...' : 'Извините, данных нет';
       return {
+         id: char.id,
          name: char.name,
          description: descr,
          thumbnail: `${char.thumbnail.path}.${char.thumbnail.extension}`,
          homepage: char.urls[0].url,
-         wiki: char.urls[1].url
+         wiki: char.urls[1].url,
+         comics: char.comics.items
       }
    }
 
