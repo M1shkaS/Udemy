@@ -1,4 +1,6 @@
 import { Component, Fragment } from 'react';
+import React
+   from 'react';
 import './App.css';
 
 //Эта библиотека позволяет использовать css прям в js с html
@@ -138,15 +140,37 @@ const Wrapper = styled.div`
    width:600px;
    margin:80px auto 0 auto;
 `
+// Очень хорошая фича, т.к мы не мутируем сам элемент. Это мб модальное окно или ещё что-то
+const DynamicGreating = (props) => {
+   return (
+      <div className={'mb-3 p-3 border borde-' + props.color}>
+         {/* Вместо этой конструкции появятся все те компоненты или элементы, которые мы будем передовать во внутрь этого компонента */}
+         {/* {props.children} */}
 
+         {
+            React.Children.map(props.children, child => {
+               return React.cloneElement(child, { className: 'shadow p-3 m-3 border rounded' })
+            })
+         }
+      </div>
+   )
+}
 function App() {
    return (
       <Wrapper>
+         <DynamicGreating color={'primary'}>
+            <h2>Props Children</h2>
+            <h2>Вставка элементов</h2>
+         </DynamicGreating>
          <WhoAmI name='John' surname='Roga' link='https://vk.com/im' />
          <WhoAmI name='Mi' surname='Sel' link='https://vk.com/im' />
-      </Wrapper>
+      </Wrapper >
    );
 }
+
+export default App;
+
+
 // function App() {
 //    return (
 //       <div className="App">
@@ -166,5 +190,3 @@ function App() {
 //       </div>
 //    );
 // }
-
-export default App;

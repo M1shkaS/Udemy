@@ -1,12 +1,15 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
 import Skeleton from '../skeleton/Skeleton'
-
 import MarvelServices from '../../services/MarvelServices';
 
+
+
 import './charInfo.scss';
-import thor from '../../resources/img/thor.jpeg';
+
 
 class CharInfo extends Component {
 
@@ -21,6 +24,7 @@ class CharInfo extends Component {
    //Выполняется после того как компонент был создан
    componentDidMount() {
       this.updateChar();
+      // this.foo.bar = 0;
    }
 
    componentDidUpdate(prevProps, prevState) {
@@ -96,8 +100,6 @@ const View = ({ char }) => {
       items = 'Комиксов нет';
    }
 
-
-
    const checkThumbnail = thumbnail.includes('image_not_available');
    const styleImg = checkThumbnail ? { objectFit: 'contain' } : { objectFit: 'cover' };
 
@@ -128,3 +130,12 @@ const View = ({ char }) => {
    )
 }
 export default CharInfo;
+
+// С помощью PropTypes можно устанавливать дефолтные значения по умолчанию
+CharInfo.propTypes = {
+   charId: PropTypes.number
+}
+
+// Предохранители стали обязательными. Предохранители - это классовые компоненты, которые оборачивают другие компоненты и если в их дочерних компонентах происходит ошибка, то они будут её ловить и ломается лишь этот компонент, а не всё
+// Они ловят не все ошибки. Только ошибки при запуске метода render, методы жизненного цикла и в конструкторах дочернего компонента
+// НЕ ЛОВЯТ. Ошибки, которые произошли в обработчиках событий, в ассинхроном коде, в самом предохранителе

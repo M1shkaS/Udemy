@@ -23,7 +23,12 @@ root.render(
       {/* Если хотим поменять тег, то ставим аттрибут as */}
       {/* <BigButton>Big Btn</BigButton> */}
       <BigButton as="a">Отправить отчёт</BigButton>
-      <BootstrapTest />
+      {/* <BootstrapTest /> */}
+
+      <BootstrapTest
+         left={<h2>Left</h2>}
+         right={<h2>Right</h2>}
+      />
    </StrictMode>
 
 );

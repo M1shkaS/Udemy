@@ -1,43 +1,83 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types'
+
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
-
 import MarvelServices from '../../services/MarvelServices';
 
+
 import './charList.scss';
-import abyss from '../../resources/img/abyss.jpg';
 
 class CharList extends Component {
    state = {
       loading: true,
       error: false,
-      characters: []
+      characters: [],
+      offset: 210,
+      newItemLoading: false,
+      charEnded: false
    }
    marvelService = new MarvelServices();
 
    componentDidMount() {
-      this.updateCharacters();
+      if (this.state.offset < 219) {
+         this.updateCharacters();
+      }
+
+      window.addEventListener('scroll', this.requesCharacterstScroll)
+   }
+
+   componentWillUnmount() {
+      window.removeEventListener('scroll', this.requesCharacterstScroll);
+   }
+
+   requesCharacterstScroll = () => {
+      const { offset, newItemLoading, charEnded } = this.state;
+
+      if (offset < 219) return;
+      if (newItemLoading) return;
+      if (charEnded) window.removeEventListener('scroll', this.requesCharacterstScroll);
+
+      if (window.scrollY + window.innerHeight >= document.body.offsetHeight) {
+         this.onRequest(offset);
+      }
    }
 
    updateCharacters = () => {
+      this.onRequest();
+   }
+
+   onRequest = (offset) => {
+      this.onCharactersLoading();
+
       this.marvelService
-         .getAllCharacters()
+         .getAllCharacters(offset)
          .then(this.onCharactersLoaded)
          .catch(this.onError)
+   }
+
+   onCharactersLoading = () => {
+      this.setState({ newItemLoading: true })
+   };
+
+
+   onCharactersLoaded = (newCharacters) => {
+      let ended = false;
+      if (newCharacters.length < 9) {
+         ended = true;
+      }
+      this.setState(({ characters, offset }) => ({
+         characters: [...characters, ...newCharacters],
+         loading: false,
+         newItemLoading: false,
+         offset: offset + 9,
+         charEnded: ended
+      }));
    }
 
    onError = () => {
       this.setState({ error: true, loading: false })
    }
-
-   onCharactersLoaded = (characters) => {
-      this.setState({
-         characters,
-         loading: false
-      });
-
-   }
-
    renderList = (items) => {
       const characters = items.map((item) => {
          const { name, thumbnail, id } = item;
@@ -60,7 +100,8 @@ class CharList extends Component {
    }
 
    render() {
-      const { loading, error, characters } = this.state;
+      // this.foo.bar = 0;
+      const { loading, error, characters, newItemLoading, offset, charEnded } = this.state;
 
       const items = this.renderList(characters);
       const spinner = loading ? <Spinner /> : null;
@@ -72,7 +113,11 @@ class CharList extends Component {
             {spinner}
             {errorMessage}
             {content}
-            <button className="button button__main button__long">
+            <button
+               style={{ 'display': charEnded ? 'none' : 'block' }}
+               disabled={newItemLoading}
+               onClick={() => this.onRequest(offset)}
+               className="button button__main button__long">
                <div className="inner">load more</div>
             </button>
          </div>
@@ -81,9 +126,8 @@ class CharList extends Component {
 
 }
 
-// const View = () => {
-//    return (
-
-//    )
-// }
 export default CharList;
+
+CharList.propTypes = {
+   onCharSelected: PropTypes.func.isRequired
+}

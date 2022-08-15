@@ -17,11 +17,12 @@ class RandomChar extends Component {
 
    componentDidMount() {
       this.updateChar();
-      // this.timerId = setInterval(this.updateChar, 3000)
+      // this.timerId = setInterval(this.updateChar, 3000);
+      // this.foo.bar = 0;
    }
 
    componentWillUnmount() {
-      // clearInterval(this.timerId)
+      // clearInterval(this.timerId);
    }
 
    marvelService = new MarvelServices();
@@ -60,7 +61,7 @@ class RandomChar extends Component {
       const { char, loading, error } = this.state;
       const errorMessage = error ? <ErrorMessage /> : null;
       const spinner = loading ? <Spinner /> : null;
-      const content = !(error || loading) ? <View char={char} /> : null
+      const content = !(error || loading) ? <View char={char} /> : null;
 
       //Условный рендеринг
       return (
@@ -118,4 +119,4 @@ const View = ({ char }) => {
 export default RandomChar;
 
 
-// Если в app мы удалим RandomCharб и в нём будет setInterval и не будет  clearInterval, то он он будет продолжать работать и это плохо(утечка памяти)
+// Если в app мы удалим RandomChar и в нём будет setInterval и не будет  clearInterval, то он он будет продолжать работать и это плохо(утечка памяти)
