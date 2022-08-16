@@ -1,11 +1,11 @@
 import { Component, Fragment } from 'react';
-import React
-   from 'react';
+import React from 'react';
 import './App.css';
 
 //Эта библиотека позволяет использовать css прям в js с html
 //npm install --save styled-components
 import styled from 'styled-components'
+
 
 // В react можно использовать готовые библиотеки
 // npm install react-bootstrap bootstrap --save
@@ -155,9 +155,52 @@ const DynamicGreating = (props) => {
       </div>
    )
 }
+// Композиция
+const HelloGreating = () => {
+   return (
+      <div>
+         <DynamicGreating styled={{ 'width': '600px', 'margin': '0 auto' }} color={'primary'}>
+            <h2>Вставка элементов</h2>
+         </DynamicGreating>
+      </div>
+   )
+}
+
+const Message = (props) => {
+   return (
+      <div>{'The props counter ' + props.counter}</div>
+   )
+}
+
+class Counter extends Component {
+   state = {
+      counter: 0
+   }
+
+   changeCounter = () => {
+      this.setState(({ counter }) => ({
+         counter: counter + 1
+      }))
+   }
+
+   render() {
+      return (
+         <>
+            <button onClick={this.changeCounter} className={'btn btn-primary'}>Click me</button>
+            {this.props.render(this.state.counter)}
+         </>
+      )
+
+   }
+}
+
 function App() {
    return (
       <Wrapper>
+         <Counter render={counter => (
+            <Message counter={counter} />
+         )} />
+         <HelloGreating />
          <DynamicGreating color={'primary'}>
             <h2>Props Children</h2>
             <h2>Вставка элементов</h2>
@@ -169,6 +212,9 @@ function App() {
 }
 
 export default App;
+
+// Чем композиция лучше, чем наследование в реакте?
+// Всегда используется композиция, потому что в реакте есть  встроенные возможности для применения композиций.
 
 
 // function App() {

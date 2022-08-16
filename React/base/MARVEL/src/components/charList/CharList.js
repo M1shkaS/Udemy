@@ -19,6 +19,25 @@ class CharList extends Component {
    }
    marvelService = new MarvelServices();
 
+   charRefsArr = [];
+
+   setCharRef = (elem) => {
+      this.charRefsArr.push(elem)
+   }
+
+   removeCharSelected = () => {
+      this.charRefsArr.forEach(item => item.classList.remove('char__item_selected'));
+   }
+
+   onFocusCharItems = (idx) => {
+
+      this.removeCharSelected();
+      this.charRefsArr[idx].classList.add('char__item_selected');
+      this.charRefsArr[idx].focus();
+      console.dir(this.charRefsArr[idx]);
+   }
+
+
    componentDidMount() {
       if (this.state.offset < 219) {
          this.updateCharacters();
@@ -60,7 +79,6 @@ class CharList extends Component {
       this.setState({ newItemLoading: true })
    };
 
-
    onCharactersLoaded = (newCharacters) => {
       let ended = false;
       if (newCharacters.length < 9) {
@@ -76,24 +94,26 @@ class CharList extends Component {
    }
 
    onError = () => {
-      this.setState({ error: true, loading: false })
+      this.setState({ error: true, loading: false });
    }
+
    renderList = (items) => {
-      const characters = items.map((item) => {
+      const characters = items.map((item, idx) => {
          const { name, thumbnail, id } = item;
 
          const checkThumbnail = thumbnail.includes('image_not_available');
          const styleImg = checkThumbnail ? { objectFit: 'unset' } : { objectFit: 'cover' };
          return (
-            <li onClick={() => this.props.onCharSelected(id)} className="char__item" key={id}>
+            <li ref={this.setCharRef} tabIndex={0} onClick={() => { this.props.onCharSelected(id); this.onFocusCharItems(idx) }
+            } className="char__item" key={id} >
                <img style={styleImg} src={thumbnail} alt={name} />
                <div className="char__name">{name}</div>
-            </li>
+            </li >
          )
       })
 
       return (
-         <ul className="char__grid">
+         <ul className="char__grid" >
             {characters}
          </ul>
       )
