@@ -44,13 +44,13 @@ class CharInfo extends Component {
    }
 
    onCharLoaded = (char) => {
-      this.setState({ char, loading: false })
+      this.setState({ char, loading: false });
    }
 
    onCharLoading = () => {
       this.setState({
          loading: true
-      })
+      });
    }
 
    onError = () => {
@@ -64,7 +64,7 @@ class CharInfo extends Component {
       const { char, loading, error } = this.state;
       const errorMessage = error ? <ErrorMessage /> : null;
       const spinner = loading ? <Spinner /> : null;
-      const content = !(error || loading || !char) ? <View char={char} /> : null
+      const content = !(error || loading || !char) ? <View char={char} /> : null;
       const sceleton = char || spinner || error ? null : <Skeleton />;
       return (
          <div className="char__info">
