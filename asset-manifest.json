@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Udemy/static/css/main.00a50aae.chunk.css",
-    "main.js": "/Udemy/static/js/main.ada522b4.chunk.js",
-    "main.js.map": "/Udemy/static/js/main.ada522b4.chunk.js.map",
+    "main.js": "/Udemy/static/js/main.c932eaee.chunk.js",
+    "main.js.map": "/Udemy/static/js/main.c932eaee.chunk.js.map",
     "runtime-main.js": "/Udemy/static/js/runtime-main.0c3d435a.js",
     "runtime-main.js.map": "/Udemy/static/js/runtime-main.0c3d435a.js.map",
     "static/js/2.2b6efd15.chunk.js": "/Udemy/static/js/2.2b6efd15.chunk.js",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.0c3d435a.js",
     "static/js/2.2b6efd15.chunk.js",
     "static/css/main.00a50aae.chunk.css",
-    "static/js/main.ada522b4.chunk.js"
+    "static/js/main.c932eaee.chunk.js"
   ]
 }
