@@ -30,7 +30,6 @@ class CharList extends Component {
    }
 
    onFocusCharItems = (idx) => {
-
       this.removeCharSelected();
       this.charRefsArr[idx].classList.add('char__item_selected');
       this.charRefsArr[idx].focus();
