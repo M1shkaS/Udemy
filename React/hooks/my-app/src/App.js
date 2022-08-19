@@ -167,6 +167,28 @@ const Slide = ({ getSomeImages }) => {
    )
 
 }
+
+const ButtonLogout = () => {
+   const [logout, setLogout] = useState(false);
+   const [text, setText] = useState('Войти')
+
+   function toggleLogout() {
+      setLogout((logout) => !logout)
+
+   }
+
+   useEffect(() => {
+      console.log('Button');
+      setText(logout ? 'Выйти' : 'Войти')
+   }, [logout])
+
+
+   console.log(1);
+   return (
+      <button onClick={toggleLogout}>{text}</button>
+   )
+}
+
 function App() {
    const [slider, setSlider] = useState(true);
 
@@ -175,6 +197,7 @@ function App() {
    }
    return (
       <>
+         <ButtonLogout />
          <button onClick={removeSlider}>Remove slider</button>
          {slider ? <Slider /> : null}
       </>

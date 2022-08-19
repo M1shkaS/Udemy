@@ -7,9 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-   <App />
-);
+root.render(<App />);
 
 // Ref - это ссылка в браузере на элемент или компонент в DOM дереве. Уже на отрисавнном 
 // Ref-ы могут отличаться от того на что они повешаны. Если на обычный  элемент (например input), то мы получим ссылку на этот элемент в DOM дереве.
