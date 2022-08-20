@@ -2,49 +2,34 @@ import { useEffect, useState } from 'react';
 
 import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
-import MarvelServices from '../../services/MarvelServices';
+import useMarvelServices from '../../services/MarvelServices';
 
 import './randomChar.scss';
 import mjolnir from '../../resources/img/mjolnir.png';
 
 const RandomChar = () => {
-   const [char, setChar] = useState({});
-   const [loading, setLoading] = useState(true);
-   const [error, setError] = useState(false);
+   const [char, setChar] = useState(null);
+   const { loading, error, getCharacter, clearError } = useMarvelServices();
 
    useEffect(() => {
       updateChar();
    }, [])
 
-   const marvelService = new MarvelServices();
-
    const onCharLoaded = (newChar) => {
       setChar(newChar);
-      setLoading(false);
-   }
-
-   const onError = () => {
-      setLoading(false);
-      setError(true);
    }
 
    const updateChar = () => {
+      clearError();
       const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
-      onUpdateChar();
 
-      marvelService
-         .getCharacter(id)
+      getCharacter(id)
          .then(onCharLoaded)
-         .catch(onError)
-   }
-
-   const onUpdateChar = () => {
-      setLoading(true);
    }
 
    const errorMessage = error ? <ErrorMessage /> : null;
    const spinner = loading ? <Spinner /> : null;
-   const content = !(error || loading) ? <View char={char} /> : null;
+   const content = !(error || loading || !char) ? <View char={char} /> : null;
 
    //Условный рендеринг
    return (
@@ -101,5 +86,3 @@ const View = ({ char }) => {
 
 export default RandomChar;
 
-
-// Если в app мы удалим RandomChar и в нём будет setInterval и не будет  clearInterval, то он он будет продолжать работать и это плохо(утечка памяти)

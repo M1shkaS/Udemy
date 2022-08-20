@@ -3,6 +3,8 @@ import AppHeader from "../appHeader/AppHeader";
 import RandomChar from "../randomChar/RandomChar";
 import CharList from "../charList/CharList";
 import CharInfo from "../charInfo/CharInfo";
+import AppBanner from "../appBanner/AppBanner";
+import ComicsList from "../comicsList/ComicsList";
 import ErrorBoundary from "../errorBoundary/ErrorBoundary";
 
 import decoration from '../../resources/img/vision.png';
@@ -10,18 +12,14 @@ import decoration from '../../resources/img/vision.png';
 const App = () => {
 
    const [selectedChar, setSelectedChar] = useState(null);
-   const [deleteList, setDeleteList] = useState(false);
 
    const onCharSelected = (id) => {
       setSelectedChar(id);
    }
-   const deleteListChar = () => {
-      setDeleteList(deleteList => !deleteList)
-   }
+
 
    return (
       <div className="app">
-         <button onClick={deleteListChar}>Delete</button>
          <AppHeader />
          <main>
             <ErrorBoundary>
@@ -29,14 +27,15 @@ const App = () => {
             </ErrorBoundary>
             <div className="char__content">
                <ErrorBoundary>
-                  {deleteList ? null : <CharList onCharSelected={onCharSelected} />}
-
+                  <CharList onCharSelected={onCharSelected} />
                </ErrorBoundary>
                <ErrorBoundary>
                   <CharInfo charId={selectedChar} />
                </ErrorBoundary>
             </div>
             <img className="bg-decoration" src={decoration} alt="vision" />
+            {/* <AppBanner />
+            <ComicsList /> */}
          </main>
       </div>
    )

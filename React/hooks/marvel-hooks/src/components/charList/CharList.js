@@ -2,33 +2,50 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types'
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
-import MarvelServices from '../../services/MarvelServices';
+import useMarvelServices from '../../services/MarvelServices';
 
 import './charList.scss';
 
 const CharList = (props) => {
-   const [loading, setLoading] = useState(true);
-   const [error, setError] = useState(false);
+
    const [characters, setCharacters] = useState([]);
    const [offset, setOffset] = useState(210);
-   const [newItemLoading, setNewItemLoading] = useState(true);
+   const [newItemLoading, setNewItemLoading] = useState(false);
    const [charEnded, setCharEnded] = useState(false);
 
-   const marvelService = new MarvelServices();
+   const { error, loading, getAllCharacters } = useMarvelServices();
 
    const charRefsArr = useRef([]);
    const offsetRef = useRef();
+   const hook = useRef(true);
 
    offsetRef.current = offset;
 
-   const onRequest = (offset) => {
-      onCharactersLoading();
-      marvelService
-         .getAllCharacters(offset)
+   const onRequest = (offset, initial) => {
+
+      initial ? setNewItemLoading(false) : setNewItemLoading(true);
+
+      getAllCharacters(offset)
          .then(onCharactersLoaded)
-         .catch(onError)
          .finally(() => setNewItemLoading(false))
    }
+
+   useEffect(() => {
+      if (newItemLoading && !charEnded) {
+         onRequest(offsetRef.current);
+      }
+   }, [newItemLoading]);
+
+   useEffect(() => {
+
+      onRequest(offsetRef.current, true);
+
+      window.addEventListener('scroll', requesCharacterstScroll);
+      return () => {
+         window.removeEventListener('scroll', requesCharacterstScroll);
+      }
+
+   }, []);
 
    const removeCharSelected = () => {
       charRefsArr.current.forEach(item => item.classList.remove('char__item_selected'));
@@ -40,31 +57,12 @@ const CharList = (props) => {
       charRefsArr.current[idx].focus();
    };
 
-   useEffect(() => {
-      if (newItemLoading && !charEnded) {
-         onRequest(offsetRef.current);
-      }
-   }, [newItemLoading]);
-
-   useEffect(() => {
-      window.addEventListener('scroll', requesCharacterstScroll);
-      return () => {
-         window.removeEventListener('scroll', requesCharacterstScroll);
-      }
-   }, []);
-
    const requesCharacterstScroll = (e) => {
-      console.log('Scroll');
-      console.log(offsetRef.current);
 
       if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
          setNewItemLoading(true);
       }
    }
-
-   const onCharactersLoading = () => {
-      setNewItemLoading(true);
-   };
 
    const onCharactersLoaded = (newCharacters) => {
       let ended = false;
@@ -73,15 +71,8 @@ const CharList = (props) => {
       }
 
       setCharacters((characters) => [...characters, ...newCharacters]);
-      setLoading(loading => false);
-      setError(error => false);
       setOffset(offset => offset + 9);
       setCharEnded(charEnded => ended);
-   }
-
-   const onError = () => {
-      setError(error => true);
-      setLoading(loading => false);
    }
 
    function renderList(items) {
@@ -118,19 +109,18 @@ const CharList = (props) => {
    }
 
    const items = renderList(characters);
-   const spinner = loading ? <Spinner /> : null;
+   const spinner = loading && !newItemLoading ? <Spinner /> : null;
    const errorMessage = error ? <ErrorMessage /> : null;
-   const content = !(error || loading) ? items : null
 
    return (
       <div className="char__list">
          {spinner}
          {errorMessage}
-         {content}
+         {items}
          <button
             style={{ 'display': charEnded ? 'none' : 'block' }}
             disabled={newItemLoading}
-            onClick={() => onRequest(offset)}
+            onClick={() => setNewItemLoading(true)}
             className="button button__main button__long">
             <div className="inner">load more</div>
          </button>
