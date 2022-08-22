@@ -13,6 +13,11 @@ const RandomChar = () => {
 
    useEffect(() => {
       updateChar();
+      const timerId = setInterval(updateChar, 60000);
+
+      return () => {
+         clearInterval(timerId)
+      }
    }, [])
 
    const onCharLoaded = (newChar) => {
@@ -34,7 +39,6 @@ const RandomChar = () => {
    //Условный рендеринг
    return (
       <div className="randomchar">
-
          {errorMessage}
          {spinner}
          {content}

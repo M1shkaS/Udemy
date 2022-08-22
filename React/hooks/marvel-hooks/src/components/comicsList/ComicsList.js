@@ -7,15 +7,37 @@ import './comicsList.scss';
 
 const ComicsList = () => {
    const { error, loading, getAllComics } = useMarvelServices();
+
    const [comics, setComics] = useState([]);
    const [offset, setOffset] = useState(0);
    const [comicsEnded, setComicsEnded] = useState(false);
-
    const [newComicsLoading, setNewComicsLoading] = useState(false);
 
    useEffect(() => {
       onRequest(offset, true);
+
+      window.addEventListener('scroll', requesCharacterstScroll);
+      return () => {
+         window.removeEventListener('scroll', requesCharacterstScroll)
+      }
    }, [])
+
+   useEffect(() => {
+      if (!comicsEnded && newComicsLoading) {
+         onRequest(offset);
+      }
+
+   }, [newComicsLoading])
+
+   const requesCharacterstScroll = (e) => {
+      if (comicsEnded) {
+         window.removeEventListener('scroll', requesCharacterstScroll)
+      }
+
+      if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
+         setNewComicsLoading(true);
+      }
+   }
 
    const onRequest = (offset, initial) => {
       initial ? setNewComicsLoading(false) : setNewComicsLoading(true);
@@ -37,7 +59,6 @@ const ComicsList = () => {
    }
 
    function renderList(items) {
-
       const comics = items.map((item, idx) => {
          const { title, price, thumbnail, id } = item;
 
@@ -72,7 +93,7 @@ const ComicsList = () => {
          {errorMessage}
          <button
             style={error || comicsEnded ? { display: 'none' } : { display: 'block' }}
-            onClick={() => onRequest(offset)}
+            onClick={() => setNewComicsLoading(true)}
             className="button button__main button__long"
             disabled={newComicsLoading}
          >

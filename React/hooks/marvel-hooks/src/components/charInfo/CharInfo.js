@@ -17,7 +17,6 @@ const CharInfo = (props) => {
       updateChar();
    }, [props.charId])
 
-
    const updateChar = () => {
       const { charId } = props;
 
@@ -26,14 +25,11 @@ const CharInfo = (props) => {
       clearError();
       getCharacter(charId)
          .then(onCharLoaded)
-
    }
 
    const onCharLoaded = (char) => {
       setChar(char);
    }
-
-
 
    const errorMessage = error ? <ErrorMessage /> : null;
    const spinner = loading ? <Spinner /> : null;
