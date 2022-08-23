@@ -12,15 +12,18 @@ const AppHeader = () => {
          </h1>
          <nav className="app__menu">
             <ul>
-               <li><NavLink
-                  end
-                  className={({ isActive }) => (isActive ? " selected" : "")}
-                  to='/'>Characters</NavLink></li>
+               <li>
+                  <NavLink
+                     end
+                     className={({ isActive }) => (isActive ? " selected" : "")}
+                     to='/'>Characters</NavLink>
+               </li>
                /
-               <li><NavLink
-                  end
-                  className={({ isActive }) => (isActive ? " selected" : "")}
-                  to='/comics'>Comics</NavLink></li>
+               <li>
+                  <NavLink
+                     className={({ isActive }) => (isActive ? " selected" : "")}
+                     to='/comics'>Comics</NavLink>
+               </li>
             </ul>
          </nav>
       </header>

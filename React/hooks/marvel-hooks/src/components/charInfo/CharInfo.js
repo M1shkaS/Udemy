@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import ErrorMessage from '../errorMessage/ErrorMessage';
@@ -52,12 +53,15 @@ const View = ({ char }) => {
 
    if (comics.length > 0) {
       items = comics.map((item, id) => {
+
+         const comicId = item.resourceURI.slice(-6).replace(/\D/gi, '');
          // eslint-disable-next-line
          if (id > 9) return;
-
          return (
             <li key={id} className="char__comics-item">
-               {item.name}
+               <Link to={`/comics/${comicId}`}>
+                  {item.name}
+               </Link>
             </li>
          )
       })

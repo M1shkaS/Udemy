@@ -1,223 +1,83 @@
-import { Component, useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, memo, PureComponent } from 'react';
 import { Container } from 'react-bootstrap';
 import './App.css';
 
-// class Slider extends Component {
 
-//    constructor(props) {
-//       super(props);
-//       this.state = {
-//          autoplay: false,
-//          slide: 0
-//       }
-//    }
+// Тоже самое, что и memo в функциональных, только PureComponent в классовых и также ток поверхностное копирование
+class Form extends PureComponent {
 
-//    changeSlide = (i) => {
-//       this.setState(({ slide }) => ({
-//          slide: slide + i
-//       }))
-//    }
+   // Если вместо  PureComponent используем просто Component, то копирование можно делать так и это также работает со вложенными структурами вместо PureComponent
+   shouldComponentUpdate(prevProps) {
+      if (this.props.mail.name === prevProps.mail.name) {
+         return false
+      } return true
+   }
+   render() {
+      console.log('render');
+      return (
+         <Container>
+            <form className="w-50 border mt-5 p-3 m-auto">
+               <div className="mb-3">
+                  <label htmlFor="exampleFormControlInput1" className="form-label mt-3">Email address</label>
+                  <input value={this.props.mail} type="email" className='form-control' id="exampleFormControlInput1" placeholder="name@example.com" />
+               </div>
+               <div className="mb-3">
+                  <label htmlFor="exampleFormControlTextarea1" className="form-label">Example textarea</label>
+                  <textarea value={this.props.text} className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+               </div>
+            </form>
+         </Container>
+      )
+   }
+}
 
-//    toggleAutoplay = () => {
-//       this.setState(({ autoplay }) => ({
-//          autoplay: !autoplay
-//       }))
-//    }
-
-//    render() {
-//       return (
-//          <Container>
-//             <div className="slider w-50 m-auto">
-//                <img className="d-block w-100" src="https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg" alt="slide" />
-//                <div className="text-center mt-5">Active slide {this.state.slide} <br /> {this.state.autoplay ? 'auto' : null}</div>
-//                <div className="buttons mt-3">
-//                   <button
-//                      className="btn btn-primary me-2"
-//                      onClick={() => this.changeSlide(-1)}>-1</button>
-//                   <button
-//                      className="btn btn-primary me-2"
-//                      onClick={() => this.changeSlide(1)}>+1</button>
-//                   <button
-//                      className="btn btn-primary me-2"
-//                      onClick={this.toggleAutoplay}>toggle autoplay</button>
-//                </div>
-//             </div>
-//          </Container>
-//       )
-//    }
+// function compareProps(prevProps, nextProps) {
+//    return prevProps.mail.name === nextProps.mail.name && prevProps.text === nextProps.text
 // }
 
-
-const countTotal = (num) => {
-   console.log('Memo');
-   return num + 10;
-}
-
-const Slider = (props) => {
-
-   //useState() возвращает массив из двух элементов . argq1 - наш state, argq2 - функция, которая будет менять это состояние 
-   // Хороший тон
-   const [slide, setSlide] = useState(0);
-   const [autoplay, setAutoplay] = useState(false);
-
-   function changeSlide(i) {
-      setSlide(slide => slide + i);
-   }
-
-   function toggleAutoplay() {
-      setAutoplay(autoplay => !autoplay);
-   }
-
-   function logging() {
-      console.log('logging');
-   }
-
-   const getSomeImages = useCallback(() => {
-      console.log('Feetching');
-
-      return [
-         'https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg',
-         'https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg'
-      ]
-   }, [slide]);
-
-   //Вызывается только один раз
-   useEffect(() => {
-      console.log('One');
-   }, []);
-
-   useEffect(() => {
-      console.log('More');
-      window.addEventListener('click', logging);
-      // Удаление
-      return () => {
-         window.removeEventListener('click', logging)
-      }
-   });
-
-   //Плохой тон
-   // const [state, setState] = useState({ slide: 0, autoplay: false })
-
-   // function changeSlide(i) {
-   //    setState(({ slide }) => ({
-   //       slide: slide + i
-   //    }))
-   // }
-
-   // Следит только за изменениями state slide
-   useEffect(() => {
-      console.log('Update slide');
-      document.title = `Slide : ${slide}`;
-   }, [slide]);
-
-   // Следит только за изменениями state autoplay
-   useEffect(() => {
-      console.log('Update Autoplay');
-   }, [autoplay]);
-
-   //Закешировали значение
-   const total = useMemo(() => {
-      return countTotal(slide);
-   }, [slide]);
-
-   const style = useMemo(() => ({
-      color: slide > 2 ? 'red' : 'yellow'
-   }), [slide]);
-
-   useEffect(() => { console.log('styles'); }, [style])
-
-
-
-   return (
-      <Container>
-         <div className="slider w-50 m-auto">
-            <Slide getSomeImages={getSomeImages} />
-            <div className="text-center mt-5">Active slide {slide} <br />{autoplay ? 'auto' : null} </div>
-            <div style={style} className="text-center mt-5">Total slide : {total} </div>
-            <div className="buttons mt-3">
-               <button
-                  className="btn btn-primary me-2"
-                  onClick={() => changeSlide(-1)}>-1</button>
-               <button
-                  className="btn btn-primary me-2"
-                  onClick={() => changeSlide(1)}>+1</button>
-               <button
-                  className="btn btn-primary me-2"
-                  onClick={toggleAutoplay}>toggle autoplay</button>
-            </div>
-         </div>
-      </Container>
-   )
-}
-
-// Не понимаю, у нас корневой же меняется значит рендер идёт заново, соответственно  Slide заново рендериться,  но просто  useEffect не будет работать на img заново же заренедерятся?????
-const Slide = ({ getSomeImages }) => {
-   const [images, setImages] = useState([]);
-
-   useEffect(() => {
-      setImages(getSomeImages());
-   }, [getSomeImages]);
-
-   return (
-      <>
-         {images.map((url, i) =>
-            <img key={i} className="d-block w-100" src={url} alt="slide" />
-         )}
-      </>
-   )
-
-}
-
-const ButtonLogout = () => {
-   const [logout, setLogout] = useState(false);
-   const [text, setText] = useState('Войти')
-
-   function toggleLogout() {
-      setLogout((logout) => !logout)
-
-   }
-
-   useEffect(() => {
-      console.log('Button');
-      setText(logout ? 'Выйти' : 'Войти')
-   }, [logout])
-
-
-   console.log(1);
-   return (
-      <button onClick={toggleLogout}>{text}</button>
-   )
-}
+// // Если понимаем, что компонент часто рендерится с одинаковыми свойствами(например курс валют через какое-то время), то надо использовать такую мемоизацию
+// const Form = memo((props) => {
+//    console.log('render');
+//    return (
+//       <Container>
+//          <form className="w-50 border mt-5 p-3 m-auto">
+//             <div className="mb-3">
+//                <label htmlFor="exampleFormControlInput1" className="form-label mt-3">Email address</label>
+//                <input value={props.mail.name} type="email" className='form-control' id="exampleFormControlInput1" placeholder="name@example.com" />
+//             </div>
+//             <div className="mb-3">
+//                <label htmlFor="exampleFormControlTextarea1" className="form-label">Example textarea</label>
+//                <textarea value={props.text} className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+//             </div>
+//          </form>
+//       </Container>
+//    )
+// }, compareProps)
 
 function App() {
-   const [slider, setSlider] = useState(true);
+   const [data, setData] = useState({
+      mail: "name@example.com",
+      text: 'some text'
+   });
 
-   function removeSlider() {
-      setSlider(false)
-   }
    return (
       <>
-         <ButtonLogout />
-         <button onClick={removeSlider}>Remove slider</button>
-         {slider ? <Slider /> : null}
+         <Form mail={data.mail} text={data.text} />
+         <button
+            onClick={() => setData({
+               mail: "name@example.com",
+               text: 'some text'
+            })}>
+            Click me
+         </button>
       </>
-
    );
 }
 
 export default App;
 
-// Хук это функция, которая активирует некоторые возможности реакта, которые до этого были только в классах
-
-// useEffect(сразу два хука жизненного цикла mount and update) - хук работы с эфектами(операции по загрузке данных, использование сторонних модулей, запуск timeout-ов, логирование или изменение DOM структуры )
-// useEffect каждый раз создаёт новую функцию (при рендере компонента или при обновлении state)
-// Жуки жизненного(componentDidMount...) цикла и просто хуки(useState,useEffect) это разные вещи
-// Подписка - обработчики событий, таймауты, всё то что может быть длительное время и обмениваться данными с компонентом
-// 165?
-
-// useMemo - возвращает мемоизированное значение
-// Практически тоже самое, ток тут не функция уже, а  переменная
-// В него нельзя помещать какие-нибудь подписки
-// Ещё мы можем мемоизировать обьекты
-
-// useRef -  всё тоже самое, как и в классовых. Любое изменение ref-а не будет заново рендерить компонент (не затрагивает useEffect), как  это делает useState
+// React.memo -сохраняет компонент, если у него не изменились значения пропсов т.е позволяет избежать лишнего рендера
+// Это компонент высшего порядка. Сравнение пропсов у нас идёт поверхностное(копия создаётся ток на верхнем уровне вложенности, а на уровне ниже идут уже ссылки на обьект родитель)
+//1. Его стоит использовать, если у нас часто приходят какие то пропсы и они не меняются и чтобы не рендерить одно и тоже часто использовать нужно memo
+//2.Если мы начнём применять memo к компонентам, которые постоянно получают разные пропсы, то мы добавляем доп действия и замедляем наше приложение
+//3. Функции не стоит использовать в качестве пропсов в memo т.к каждый раз создаётся новая функция и будет пункт 2.Ток если мы хотим это обойти то можно использовать useCallback

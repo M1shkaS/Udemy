@@ -112,6 +112,13 @@ const CharList = (props) => {
    const spinner = loading && !newItemLoading ? <Spinner /> : null;
    const errorMessage = error ? <ErrorMessage /> : null;
 
+   // динамическая подгрузка
+   // if (loading) {
+   //    import('./someFunc')
+   //       .then(obj => obj.logger())
+   //       .catch()
+   // }
+
    return (
       <div className="char__list">
          {spinner}

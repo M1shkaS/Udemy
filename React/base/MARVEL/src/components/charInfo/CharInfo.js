@@ -81,7 +81,6 @@ const View = ({ char }) => {
    const { name, description, thumbnail, homepage, wiki, comics } = char;
 
    let items = null;
-
    if (comics.length > 0) {
       items = comics.map((item, id) => {
          // eslint-disable-next-line
