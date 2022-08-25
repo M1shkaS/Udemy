@@ -126,8 +126,6 @@ const Slider = (props) => {
 
    useEffect(() => { console.log('styles'); }, [style])
 
-
-
    return (
       <Container>
          <div className="slider w-50 m-auto">
@@ -189,7 +187,7 @@ const ButtonLogout = () => {
    )
 }
 
-function App() {
+function AppFirst() {
    const [slider, setSlider] = useState(true);
 
    function removeSlider() {
@@ -205,7 +203,7 @@ function App() {
    );
 }
 
-export default App;
+export default AppFirst;
 
 // Хук это функция, которая активирует некоторые возможности реакта, которые до этого были только в классах
 
@@ -216,7 +214,7 @@ export default App;
 // 165?
 
 // useMemo - возвращает мемоизированное значение
-// Практически тоже самое, ток тут не функция уже, а  переменная
+// Практически тоже самое, ток тут не функция уже, а переменная
 // В него нельзя помещать какие-нибудь подписки
 // Ещё мы можем мемоизировать обьекты
 

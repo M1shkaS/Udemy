@@ -27,7 +27,6 @@ const ComicsList = () => {
       if (!comicsEnded && newComicsLoading) {
          onRequest(offset);
       }
-
    }, [newComicsLoading])
 
    const requesCharacterstScroll = (e) => {

@@ -17,7 +17,6 @@ const CharList = (props) => {
 
    const charRefsArr = useRef([]);
    const offsetRef = useRef();
-   const hook = useRef(true);
 
    offsetRef.current = offset;
 
