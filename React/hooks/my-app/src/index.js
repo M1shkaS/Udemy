@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import './index.scss';
 import App from './App';
 import AppContext from './AppContext';
 import Posts from './Posts';
 import AppFirst from './AppFirrst';
 import AppReducer from './AppReducer';
 import AppHoc from './AppHoc';
+import AppTransitionGroup from './AppTransitionGroup';
+import Form from './Form';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -18,7 +20,9 @@ root.render(
       {/* <AppContext /> */}
       {/* <AppFirst /> */}
       {/* <AppReducer /> */}
-      <AppHoc />
+      {/* <AppHoc /> */}
+      {/* <AppTransitionGroup /> */}
+      <Form />
    </>
    // <React.StrictMode>
 

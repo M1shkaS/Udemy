@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import useMarvelServices from '../../services/MarvelServices';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
+import { CSSTransition, TransitionGroup, } from 'react-transition-group';
 
 import './comicsList.scss';
 
@@ -66,18 +67,26 @@ const ComicsList = () => {
          const styleImg = checkThumbnail ? { objectFit: 'unset' } : { objectFit: 'cover' };
 
          return (
-            <li className="comics__item" key={idx}>
-               <Link to={`/comics/${id}`}>
-                  <img style={styleImg} src={thumbnail} alt="ultimate war" className="comics__item-img" />
-                  <div className="comics__item-name">{title}</div>
-                  <div className="comics__item-price">{price}</div>
-               </Link>
-            </li>
+            <CSSTransition
+               key={idx}
+               timeout={300}
+               classNames="comics__item">
+               <li className="comics__item" >
+                  <Link to={`/comics/${id}`}>
+                     <img style={styleImg} src={thumbnail} alt="ultimate war" className="comics__item-img" />
+                     <div className="comics__item-name">{title}</div>
+                     <div className="comics__item-price">{price}</div>
+                  </Link>
+               </li>
+            </CSSTransition>
          )
       })
       return (
          <ul className="comics__grid">
-            {comics}
+            <TransitionGroup component={null}>
+               {comics}
+            </TransitionGroup>
+
          </ul>
       )
    }

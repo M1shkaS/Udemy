@@ -12,7 +12,6 @@ const SingleComicPage = lazy(() => import('../pages/SingleComicPage'));
 
 // 669
 const App = () => {
-
    return (
       <Router>
          <div className="app">
@@ -26,7 +25,6 @@ const App = () => {
                      <Route path='*' element={<Page404 />} />
                   </Routes>
                </Suspense>
-
             </main>
          </div>
       </Router>

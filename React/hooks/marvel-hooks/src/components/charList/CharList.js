@@ -4,6 +4,8 @@ import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
 import useMarvelServices from '../../services/MarvelServices';
 
+import { CSSTransition, TransitionGroup, } from 'react-transition-group';
+
 import './charList.scss';
 
 const CharList = (props) => {
@@ -82,27 +84,37 @@ const CharList = (props) => {
          const styleImg = checkThumbnail ? { objectFit: 'unset' } : { objectFit: 'cover' };
 
          return (
-            <li ref={(elem) => charRefsArr.current[idx] = elem}
-               tabIndex={0}
-               onClick={() => { props.onCharSelected(id); onFocusCharItems(idx) }
-               } className="char__item"
+            <CSSTransition
                key={id}
-               onKeyPress={(e) => {
-                  if (e.key === ' ' || e.key === "Enter") {
-                     props.onCharSelected(id);
-                     onFocusCharItems(idx);
-                  }
-               }}
+               timeout={Math.round(300 + Math.random() * 1000)}
+               classNames="char__item"
             >
-               <img style={styleImg} src={thumbnail} alt={name} />
-               <div className="char__name">{name}</div>
-            </li >
+               <li ref={(elem) => charRefsArr.current[idx] = elem}
+                  tabIndex={0}
+                  onClick={() => { props.onCharSelected(id); onFocusCharItems(idx) }
+                  }
+                  className="char__item"
+                  onKeyPress={(e) => {
+                     if (e.key === ' ' || e.key === "Enter") {
+                        props.onCharSelected(id);
+                        onFocusCharItems(idx);
+                     }
+                  }}
+               >
+                  <img style={styleImg} src={thumbnail} alt={name} />
+                  <div className="char__name">{name}</div>
+               </li >
+
+            </CSSTransition>
          )
       })
 
       return (
          <ul className="char__grid" >
-            {characters}
+            <TransitionGroup component={null}>
+               {characters}
+            </TransitionGroup>
+
          </ul>
       )
    }
