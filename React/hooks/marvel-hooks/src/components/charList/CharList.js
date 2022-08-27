@@ -41,10 +41,10 @@ const CharList = (props) => {
 
       onRequest(offsetRef.current, true);
 
-      window.addEventListener('scroll', requesCharacterstScroll);
-      return () => {
-         window.removeEventListener('scroll', requesCharacterstScroll);
-      }
+      // window.addEventListener('scroll', requesCharacterstScroll);
+      // return () => {
+      //    window.removeEventListener('scroll', requesCharacterstScroll);
+      // }
 
    }, []);
 
@@ -137,7 +137,7 @@ const CharList = (props) => {
          {items}
          <button
             style={{ 'display': charEnded ? 'none' : 'block' }}
-            disabled={newItemLoading}
+            disabled={loading}
             onClick={() => setNewItemLoading(true)}
             className="button button__main button__long">
             <div className="inner">load more</div>

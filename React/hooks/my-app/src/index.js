@@ -8,7 +8,7 @@ import AppFirst from './AppFirrst';
 import AppReducer from './AppReducer';
 import AppHoc from './AppHoc';
 import AppTransitionGroup from './AppTransitionGroup';
-import Form from './Form';
+import FormCustom from './Form';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -22,7 +22,7 @@ root.render(
       {/* <AppReducer /> */}
       {/* <AppHoc /> */}
       {/* <AppTransitionGroup /> */}
-      <Form />
+      <FormCustom />
    </>
    // <React.StrictMode>
 
