@@ -3,13 +3,13 @@ import { Link, useParams } from 'react-router-dom';
 import useMarvelServices from '../../services/MarvelServices';
 import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
-
 import AppBanner from '../appBanner/AppBanner';
+import setContent from '../../utils/setContent';
 
 
 const SinglePage = ({ dataType, Component }) => {
    const { id } = useParams()
-   const { loading, error, getComic, getCharacter, clearError } = useMarvelServices();
+   const { getComic, getCharacter, clearError, process, setProcess } = useMarvelServices();
    const [data, setData] = useState(null);
 
    useEffect(() => {
@@ -22,10 +22,12 @@ const SinglePage = ({ dataType, Component }) => {
          case 'comic':
             getComic(id)
                .then(onDataLoaded)
+               .then(() => setProcess('confirmed'))
             break;
          case 'character':
             getCharacter(id)
                .then(onDataLoaded)
+               .then(() => setProcess('confirmed'))
             break;
       }
    }
@@ -34,17 +36,11 @@ const SinglePage = ({ dataType, Component }) => {
       setData(data);
    }
 
-   console.log(Component);
-   const spinner = loading ? <Spinner /> : null;
-   const errorMessage = error ? <ErrorMessage /> : null;
-   const content = !(loading || error || !data) ? <Component data={data} /> : null;
-
    return (
       <>
          <AppBanner />
-         {spinner}
-         {errorMessage}
-         {content}
+         {setContent(process, Component, data)}
+
       </>
    )
 }

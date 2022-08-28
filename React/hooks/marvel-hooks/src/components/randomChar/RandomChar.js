@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
 
-import Spinner from '../spinner/Spinner';
-import ErrorMessage from '../errorMessage/ErrorMessage';
 import useMarvelServices from '../../services/MarvelServices';
+import setContent from '../../utils/setContent';
 
 import './randomChar.scss';
 import mjolnir from '../../resources/img/mjolnir.png';
 
 const RandomChar = () => {
    const [char, setChar] = useState(null);
-   const { loading, error, getCharacter, clearError } = useMarvelServices();
+   const { getCharacter, clearError, setProcess, process } = useMarvelServices();
 
    useEffect(() => {
       updateChar();
@@ -30,18 +29,14 @@ const RandomChar = () => {
 
       getCharacter(id)
          .then(onCharLoaded)
+         .then(() => setProcess('confirmed'))
    }
 
-   const errorMessage = error ? <ErrorMessage /> : null;
-   const spinner = loading ? <Spinner /> : null;
-   const content = !(error || loading || !char) ? <View char={char} /> : null;
 
    //Условный рендеринг
    return (
       <div className="randomchar">
-         {errorMessage}
-         {spinner}
-         {content}
+         {setContent(process, View, char)}
          <div className="randomchar__static">
             <p className="randomchar__title">
                Random character for today!<br />
@@ -60,8 +55,8 @@ const RandomChar = () => {
 
 }
 
-const View = ({ char }) => {
-   const { name, thumbnail, homepage, wiki, description } = char;
+const View = ({ data }) => {
+   const { name, thumbnail, homepage, wiki, description } = data;
 
    const checkThumbnail = thumbnail.includes('image_not_available');
    const styleImg = checkThumbnail ? { objectFit: 'contain' } : { objectFit: 'cover' }

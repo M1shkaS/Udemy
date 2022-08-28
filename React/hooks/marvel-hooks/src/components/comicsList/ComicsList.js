@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import useMarvelServices from '../../services/MarvelServices';
-import ErrorMessage from '../errorMessage/ErrorMessage';
-import Spinner from '../spinner/Spinner';
 import { CSSTransition, TransitionGroup, } from 'react-transition-group';
+import setListContent from '../../utils/setListContent';
 
 import './comicsList.scss';
 
 const ComicsList = () => {
-   const { error, loading, getAllComics } = useMarvelServices();
+   const { error, getAllComics, process, setProcess } = useMarvelServices();
 
    const [comics, setComics] = useState([]);
    const [offset, setOffset] = useState(0);
@@ -45,6 +44,7 @@ const ComicsList = () => {
 
       getAllComics(offset)
          .then(onComicsLoaded)
+         .then(() => setProcess('confirmed'))
          .finally(() => setNewComicsLoading(false))
    }
 
@@ -69,7 +69,7 @@ const ComicsList = () => {
          return (
             <CSSTransition
                key={idx}
-               timeout={300}
+               timeout={500}
                classNames="comics__item">
                <li className="comics__item" >
                   <Link to={`/comics/${id}`}>
@@ -91,15 +91,10 @@ const ComicsList = () => {
       )
    }
 
-   const items = renderList(comics);
-   const spinner = loading && !newComicsLoading ? <Spinner /> : null;
-   const errorMessage = error ? <ErrorMessage /> : null;
-
    return (
       <div className="comics__list">
-         {items}
-         {spinner}
-         {errorMessage}
+         {setListContent(process, () => renderList(comics), newComicsLoading)}
+
          <button
             style={error || comicsEnded ? { display: 'none' } : { display: 'block' }}
             onClick={() => setNewComicsLoading(true)}

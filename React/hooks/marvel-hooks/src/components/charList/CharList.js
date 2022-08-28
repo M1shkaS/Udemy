@@ -1,8 +1,7 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallbackб, useMemo } from 'react';
 import PropTypes from 'prop-types'
-import ErrorMessage from '../errorMessage/ErrorMessage';
-import Spinner from '../spinner/Spinner';
 import useMarvelServices from '../../services/MarvelServices';
+import setListContent from '../../utils/setListContent';
 
 import { CSSTransition, TransitionGroup, } from 'react-transition-group';
 
@@ -15,7 +14,7 @@ const CharList = (props) => {
    const [newItemLoading, setNewItemLoading] = useState(false);
    const [charEnded, setCharEnded] = useState(false);
 
-   const { error, loading, getAllCharacters } = useMarvelServices();
+   const { error, loading, getAllCharacters, process, setProcess } = useMarvelServices();
 
    const charRefsArr = useRef([]);
    const offsetRef = useRef();
@@ -28,6 +27,7 @@ const CharList = (props) => {
 
       getAllCharacters(offset)
          .then(onCharactersLoaded)
+         .then(() => setProcess('confirmed'))
          .finally(() => setNewItemLoading(false))
    }
 
@@ -114,27 +114,18 @@ const CharList = (props) => {
             <TransitionGroup component={null}>
                {characters}
             </TransitionGroup>
-
          </ul>
       )
    }
 
-   const items = renderList(characters);
-   const spinner = loading && !newItemLoading ? <Spinner /> : null;
-   const errorMessage = error ? <ErrorMessage /> : null;
-
-   // динамическая подгрузка
-   // if (loading) {
-   //    import('./someFunc')
-   //       .then(obj => obj.logger())
-   //       .catch()
-   // }
+   const elements = useMemo(() => {
+      return setListContent(process, () => renderList(characters), newItemLoading);
+      // eslint-disable-next-line
+   }, [process])
 
    return (
       <div className="char__list">
-         {spinner}
-         {errorMessage}
-         {items}
+         {elements}
          <button
             style={{ 'display': charEnded ? 'none' : 'block' }}
             disabled={loading}
