@@ -1,6 +1,6 @@
-// action-creator
+// actions-creator
 const inc = () => ({ type: 'INC' });
 const dec = () => ({ type: 'DEC' });
-const rnd = (value) => ({ type: 'RND', payload: value });
+const rnd = () => ({ type: 'RND', payload: Math.floor(Math.random() * 10) });
 
 export { inc, dec, rnd };
