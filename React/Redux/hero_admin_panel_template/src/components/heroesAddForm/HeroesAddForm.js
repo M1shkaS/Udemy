@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { v4 as uuidv4 } from 'uuid';
@@ -17,6 +17,7 @@ import { heroAdded } from '../../actions';
 const HeroesAddForm = () => {
    const { request } = useHttp();
    const dispatch = useDispatch();
+   const { filters, filtersLoadingStatus } = useSelector(state => state.filters);
 
    const addHero = (newHero) => {
       const hero = {
@@ -27,6 +28,22 @@ const HeroesAddForm = () => {
       request('http://localhost:3001/heroes', 'POST', JSON.stringify(hero))
          .then(() => dispatch(heroAdded(hero)))
          .catch(error => console.log(error))
+   }
+
+   const renderFilters = (filters, status) => {
+
+      if (status === 'loading') {
+         return <option >Загрузка фильтров</option>
+      } else if (status === 'error') {
+         return <option >Произошла ошибка</option>
+      }
+
+      if (filters && filters.length > 0) {
+         return filters.map(({ label, name }) => {
+            if (name === 'all') return;
+            return <option key={name} value={name}>{label}</option>
+         })
+      }
    }
 
    return (
@@ -45,6 +62,7 @@ const HeroesAddForm = () => {
 
          onSubmit={(values) => addHero(values)}
       >
+
          <Form className="border p-4 shadow-lg rounded">
             <div className="mt-3">
                <label htmlFor="name" className="form-label fs-4">Имя нового героя</label>
@@ -75,15 +93,14 @@ const HeroesAddForm = () => {
                   id="element"
                   name="element">
                   <option >Я владею элементом...</option>
-                  <option value="fire">Огонь</option>
-                  <option value="water">Вода</option>
-                  <option value="wind">Ветер</option>
-                  <option value="earth">Земля</option>
+                  {renderFilters(filters, filtersLoadingStatus)}
                </Field>
             </div>
             <ErrorMessage name="element" className="mb-3" style={{ color: 'red' }} component="div" />
-            <button type="submit" className=" mt-3 btn btn-primary">Создать</button>
+            <button
+               type="submit" className=" mt-3 btn btn-primary">Создать</button>
          </Form>
+
       </Formik>
 
    )

@@ -38,7 +38,7 @@ export const heroesFetched = (heroes) => {
 }
 export const heroAdded = (hero) => {
    return {
-      type: 'HERO_ADDED',
+      type: 'HERO_CREATED',
       payload: hero
    }
 }

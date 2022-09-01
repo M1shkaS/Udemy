@@ -13,7 +13,8 @@ import { useHttp } from "../../hooks/http.hook";
 // Представьте, что вы попросили бэкенд-разработчика об этом
 
 const HeroesFilters = () => {
-   const { filters, filtersLoadingStatus, activeFilter } = useSelector(state => state);
+   const { filters, filtersLoadingStatus, activeFilter } = useSelector(state => state.filters);
+
    const { request } = useHttp();
    const dispatch = useDispatch();
 
@@ -34,7 +35,7 @@ const HeroesFilters = () => {
 
    function renderFiltersButton(buttons) {
       if (buttons.length === 0) {
-         return <h5 className="text-center mt-5">Фильтров не найдены</h5>
+         return <h5 className="text-center mt-5">Фильтров не найдено</h5>
       }
 
       return buttons.map(({ label, name, className }) => {

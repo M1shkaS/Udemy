@@ -2,6 +2,7 @@ import { useHttp } from '../../hooks/http.hook';
 import { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CSSTransition, TransitionGroup, } from 'react-transition-group';
+import { createSelector } from 'reselect'
 
 import { heroesFetching, heroesFetched, heroesDeleted, heroesFetchingError } from '../../actions';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
@@ -15,7 +16,23 @@ import './heroesList.scss';
 // Удаление идет и с json файла при помощи метода DELETE
 
 const HeroesList = () => {
-   const { filteredHeroes, heroesLoadingStatus } = useSelector(state => state);
+
+   // Создаёт мемоизированное значение, которое будет проверять, если изменился state, то запустит, если нет то не запустит
+   const filteredHeroesSelector = createSelector(
+      state => state.heroes.heroes,
+      state => state.filters.activeFilter,
+      (heroes, activeFilter) => {
+         if (activeFilter === 'all') {
+            return heroes
+         } else {
+            return heroes.filter(item => item.element === activeFilter)
+         }
+      }
+   )
+
+   const filteredHeroes = useSelector(filteredHeroesSelector);
+   const heroesLoadingStatus = useSelector(state => state.filters.filtersLoadingStatus);
+
    const dispatch = useDispatch();
    const { request } = useHttp();
 
@@ -28,6 +45,7 @@ const HeroesList = () => {
       // eslint-disable-next-line
    }, []);
 
+   // т.к передаём ниже по иерархии и чтобы не вызывать каждый раз перерендер компонента используем  useCallback
    const onDeletedHero = useCallback((id) => {
       request(`http://localhost:3001/heroes/${id}`, 'DELETE')
          .then(() => dispatch(heroesDeleted(id)))
@@ -68,6 +86,7 @@ const HeroesList = () => {
    }
 
    const elements = renderHeroesList(filteredHeroes);
+
    return (
       <TransitionGroup component={'ul'}>
          {elements}
