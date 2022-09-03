@@ -2,9 +2,12 @@ import { useHttp } from '../../hooks/http.hook';
 import { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CSSTransition, TransitionGroup, } from 'react-transition-group';
+// createSelector есть в redux/toolkit
 import { createSelector } from 'reselect'
 
-import { fecthHeroes, heroesFetching, heroesFetched, heroesDeleted, heroesFetchingError } from '../../actions';
+// import { fecthHeroes, heroesFetching, heroesFetched, heroesDeleted, heroesFetchingError } from '../../actions';
+// import { fecthHeroes } from '../../actions';
+import { heroesDeleted, heroesFetchingError, fecthHeroes } from './heroesSlice';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
@@ -37,7 +40,7 @@ const HeroesList = () => {
    const { request } = useHttp();
 
    useEffect(() => {
-      dispatch(fecthHeroes(request));
+      dispatch(fecthHeroes());
 
       // eslint-disable-next-line
    }, []);
