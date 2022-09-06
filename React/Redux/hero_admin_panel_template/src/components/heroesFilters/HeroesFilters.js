@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import classNames from "classnames";
+import store from '../../store';
 
 // import { fecthFilters } from "../../actions";
-import { filtersChange, fecthFilters } from "./filtersSlice";
+import { filtersChange, fecthFilters, selectAll } from "./filtersSlice";
 import Spinner from '../spinner/Spinner';
 
 // Задача для этого компонента:
@@ -14,8 +15,8 @@ import Spinner from '../spinner/Spinner';
 // Представьте, что вы попросили бэкенд-разработчика об этом
 
 const HeroesFilters = () => {
-   const { filters, filtersLoadingStatus, activeFilter } = useSelector(state => state.filters);
-
+   const { filtersLoadingStatus, activeFilter } = useSelector(state => state.filters);
+   const filters = selectAll(store.getState());
    const dispatch = useDispatch();
 
    useEffect(() => {

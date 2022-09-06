@@ -7,7 +7,7 @@ import { createSelector } from 'reselect'
 
 // import { fecthHeroes, heroesFetching, heroesFetched, heroesDeleted, heroesFetchingError } from '../../actions';
 // import { fecthHeroes } from '../../actions';
-import { heroesDeleted, heroesFetchingError, fecthHeroes } from './heroesSlice';
+import { heroesDeleted, heroesFetchingError, fecthHeroes, filteredHeroesSelector, selectAll } from './heroesSlice';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
@@ -19,19 +19,6 @@ import './heroesList.scss';
 // Удаление идет и с json файла при помощи метода DELETE
 
 const HeroesList = () => {
-
-   // Создаёт мемоизированное значение, которое будет проверять, если изменился state, то запустит, если нет то не запустит
-   const filteredHeroesSelector = createSelector(
-      state => state.heroes.heroes,
-      state => state.filters.activeFilter,
-      (heroes, activeFilter) => {
-         if (activeFilter === 'all') {
-            return heroes
-         } else {
-            return heroes.filter(item => item.element === activeFilter)
-         }
-      }
-   )
 
    const filteredHeroes = useSelector(filteredHeroesSelector);
    const heroesLoadingStatus = useSelector(state => state.heroes.heroesLoadingStatus);
