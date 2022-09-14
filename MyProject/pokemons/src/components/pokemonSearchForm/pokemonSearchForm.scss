@@ -1,0 +1,19 @@
+.pokemon{
+   &__search-form{
+      text-align: center;
+      margin-top: 20px;
+      input{
+         width: 300px;
+         padding: 10px;
+         height: 35px;
+         border: 1px solid rgb(163, 163, 163);
+         box-shadow: -15px 14px 13px -12px #a9a7a7;
+         border-radius: 20px;
+         outline: none;
+      }
+      button{
+         margin-left: 15px;
+      }
+   }
+
+}

@@ -1,0 +1,28 @@
+.button{
+   width: 80px;
+   height: 35px;
+   border-radius: 15px;
+   border: 1px solid rgb(163, 163, 163);
+   background-color: inherit;
+   font-size: 15px;
+   transition: all 500ms ease; 
+   background-color: white;
+   cursor: pointer;
+   &:hover{
+      background: rgb(226, 225, 225);
+      color: black;
+      border: none;
+      transform: scale(1.2);
+   }
+   &:hover:disabled{
+      background: rgb(226, 225, 225);
+      color: black;
+      border: none;
+   }
+   &__more{
+      width: 120px;
+      display: block;
+
+      margin: 20px auto 0 auto;
+   }
+}

@@ -1,49 +1,54 @@
 {
-  "heroes": [
-    {
-      "id": 1,
-      "name": "Первый герой",
-      "description": "Первый герой в рейтинге!",
-      "element": "fire"
-    },
-    {
-      "id": "30a1cc7e-f6c9-4bdb-a292-8a7e37d9555a",
-      "name": "Кофе",
-      "description": "jhgjgjhgjhgjhg",
-      "element": "wind"
-    },
-    {
-      "id": "558c4125-bf76-4d27-9469-7142d04a9726",
-      "name": "Кофе",
-      "description": "gdgfdgdfgfdgdfgd",
-      "element": "water"
-    }
-  ],
-  "filters": [
-    {
-      "label": "Все",
-      "name": "all",
-      "className": "btn-outline-dark"
-    },
-    {
-      "label": "Огонь",
-      "name": "fire",
-      "className": "btn-danger"
-    },
-    {
-      "label": "Вода",
-      "name": "water",
-      "className": "btn-primary"
-    },
-    {
-      "label": "Ветер",
-      "name": "wind",
-      "className": "btn-success"
-    },
-    {
-      "label": "Земля",
-      "name": "earth",
-      "className": "btn-secondary"
-    }
-  ]
+   "heroes": [
+      {
+         "id": 1,
+         "name": "Первый герой",
+         "description": "Первый герой в рейтинге!",
+         "element": "fire"
+      },
+      {
+         "id": "30a1cc7e-f6c9-4bdb-a292-8a7e37d9555a",
+         "name": "Кофе",
+         "description": "jhgjgjhgjhgjhg",
+         "element": "wind"
+      },
+      {
+         "id": "558c4125-bf76-4d27-9469-7142d04a9726",
+         "name": "Кофе",
+         "description": "gdgfdgdfgfdgdfgd",
+         "element": "water"
+      }
+   ],
+   "filters": [
+      {
+         "id": "all",
+         "label": "Все",
+         "name": "all",
+         "className": "btn-outline-dark"
+      },
+      {
+         "id": "fire",
+         "label": "Огонь",
+         "name": "fire",
+         "className": "btn-danger"
+      },
+      {
+         "id": "water",
+         "label": "Вода",
+         "name": "water",
+         "className": "btn-primary"
+      },
+      {
+         "id": "wind",
+         "label": "Ветер",
+         "name": "wind",
+         "className": "btn-success"
+      },
+      {
+         "id": "earth",
+         "label": "Земля",
+         "name": "earth",
+         "className": "btn-secondary"
+      }
+   ]
 }
